@@ -177,128 +177,198 @@ function ProductTile({ product, onClick }: { product: typeof heroProducts[0]; on
   );
 }
 
-/* ── Decorative botanical SVG ── */
+/* ── Decorative botanical SVG — lush tropical leaves ── */
 function BotanicalBackground() {
   return (
     <svg
-      viewBox="0 0 1280 520"
+      viewBox="0 0 1280 560"
       preserveAspectRatio="xMidYMid slice"
       style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 1 }}
       aria-hidden="true"
     >
       <defs>
-        <style>{`
-          .leaf { fill: none; stroke: #2D5A27; stroke-width: 1; opacity: 0.12; }
-          .leaf-fill { fill: #2D5A27; opacity: 0.05; }
-          .branch { fill: none; stroke: #2D5A27; stroke-width: 1.2; opacity: 0.1; stroke-linecap: round; }
-          .dot { fill: #2D5A27; opacity: 0.08; }
-        `}</style>
+        {/* Light leaf fill */}
+        <linearGradient id="lf1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#4a8c3e" stopOpacity="0.28" />
+          <stop offset="100%" stopColor="#2D5A27" stopOpacity="0.18" />
+        </linearGradient>
+        <linearGradient id="lf2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#6aaf5a" stopOpacity="0.22" />
+          <stop offset="100%" stopColor="#3a7033" stopOpacity="0.14" />
+        </linearGradient>
+        <linearGradient id="lf3" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#2D5A27" stopOpacity="0.32" />
+          <stop offset="100%" stopColor="#5aa04e" stopOpacity="0.20" />
+        </linearGradient>
       </defs>
 
-      {/* === TOP-LEFT LARGE BRANCH === */}
-      {/* Main stem */}
-      <path className="branch" d="M -10 120 Q 80 80 160 140 Q 220 180 260 160" />
-      {/* Sub-branches */}
-      <path className="branch" d="M 60 100 Q 90 60 130 50" />
-      <path className="branch" d="M 110 120 Q 140 85 175 75" />
-      <path className="branch" d="M 160 140 Q 185 100 215 90" />
+      {/* ════════════════════════════════════
+          TOP-LEFT  —  large leafy branch
+      ════════════════════════════════════ */}
 
-      {/* Leaf cluster top-left */}
-      <LeafGroup x={130} y={45} rotate={-30} scale={1} />
-      <LeafGroup x={175} y={70} rotate={20} scale={0.8} />
-      <LeafGroup x={55} y={90} rotate={-60} scale={0.9} />
-      <LeafGroup x={215} y={85} rotate={10} scale={0.75} />
+      {/* Main woody stem from top-left corner */}
+      <path fill="none" stroke="#2D5A27" strokeWidth="3" strokeLinecap="round" opacity="0.25"
+        d="M -30 -20 C 40 30 80 70 120 110 C 160 150 200 160 240 150" />
+      {/* Sub-stems */}
+      <path fill="none" stroke="#2D5A27" strokeWidth="2" strokeLinecap="round" opacity="0.2"
+        d="M 50 40 C 60 10 90 -10 130 -20" />
+      <path fill="none" stroke="#2D5A27" strokeWidth="2" strokeLinecap="round" opacity="0.2"
+        d="M 95 88 C 100 55 120 30 155 18" />
+      <path fill="none" stroke="#2D5A27" strokeWidth="1.5" strokeLinecap="round" opacity="0.18"
+        d="M 148 128 C 155 95 175 72 210 62" />
 
-      {/* === TOP-RIGHT HANGING BRANCH === */}
-      <path className="branch" d="M 1100 -10 Q 1150 40 1180 100 Q 1200 150 1240 160" />
-      <path className="branch" d="M 1120 30 Q 1090 65 1070 90" />
-      <path className="branch" d="M 1145 70 Q 1115 100 1100 130" />
-      <path className="branch" d="M 1180 100 Q 1145 120  1130 155" />
-      <LeafGroup x={1065} y={95} rotate={150} scale={0.85} />
-      <LeafGroup x={1098} y={133} rotate={130} scale={0.75} />
-      <LeafGroup x={1125} y={155} rotate={160} scale={0.9} />
-      <LeafGroup x={1115} y={25} rotate={100} scale={0.7} />
+      {/* Big leaf 1 — top-left, pointing up-right */}
+      <TropicalLeaf tx={128} ty={-22} rot={40} sc={1.3} grad="lf1" />
+      {/* Big leaf 2 */}
+      <TropicalLeaf tx={42} ty={30} rot={-15} sc={1.1} grad="lf2" />
+      {/* Medium leaf 3 */}
+      <TropicalLeaf tx={152} ty={18} rot={65} sc={1.0} grad="lf1" />
+      {/* Leaf 4 — sub-stem end */}
+      <TropicalLeaf tx={205} ty={60} rot={50} sc={0.9} grad="lf2" />
+      {/* Leaf 5 — low on main stem */}
+      <TropicalLeaf tx={82} ty={78} rot={20} sc={0.85} grad="lf3" />
+      {/* Small accent leaves */}
+      <SimpleLeaf tx={-10} ty={55} rot={-30} sc={0.7} />
+      <SimpleLeaf tx={170} ty={100} rot={35} sc={0.65} />
+      <SimpleLeaf tx={240} ty={145} rot={55} sc={0.6} />
 
-      {/* === BOTTOM-LEFT RISING STEMS === */}
-      <path className="branch" d="M -10 480 Q 50 430 100 400 Q 150 370 180 330" />
-      <path className="branch" d="M 80 420 Q 55 380 30 360" />
-      <path className="branch" d="M 130 385 Q 100 355 85 330" />
-      <LeafGroup x={30} y={360} rotate={200} scale={0.8} />
-      <LeafGroup x={85} y={330} rotate={220} scale={0.7} />
-      <LeafGroup x={180} y={325} rotate={180} scale={0.95} />
 
-      {/* === BOTTOM-RIGHT BOTANICAL === */}
-      <path className="branch" d="M 1290 520 Q 1230 470 1190 420 Q 1155 380 1120 370" />
-      <path className="branch" d="M 1210 450 Q 1240 410 1260 390" />
-      <path className="branch" d="M 1165 400 Q 1195 370 1215 350" />
-      <LeafGroup x={1260} y={385} rotate={-20} scale={0.7} />
-      <LeafGroup x={1215} y={348} rotate={-45} scale={0.8} />
-      <LeafGroup x={1120} y={368} rotate={250} scale={0.9} />
+      {/* ════════════════════════════════════
+          TOP-RIGHT  —  hanging branch
+      ════════════════════════════════════ */}
 
-      {/* === CENTER SEPARATOR — subtle fern-like divider === */}
-      <path className="branch" d="M 625 0 Q 635 80 630 180 Q 625 280 635 380 Q 640 440 630 520" opacity="0.07" strokeDasharray="4 6" />
+      <path fill="none" stroke="#2D5A27" strokeWidth="3" strokeLinecap="round" opacity="0.22"
+        d="M 1310 -25 C 1240 20 1200 60 1175 110 C 1155 150 1148 180 1140 200" />
+      <path fill="none" stroke="#2D5A27" strokeWidth="2" strokeLinecap="round" opacity="0.18"
+        d="M 1248 28 C 1210 35 1180 55 1160 80" />
+      <path fill="none" stroke="#2D5A27" strokeWidth="2" strokeLinecap="round" opacity="0.18"
+        d="M 1200 72 C 1165 75 1148 95 1138 120" />
 
-      {/* === SCATTERED LEAVES across mid-field === */}
-      <LeafGroup x={400} y={30} rotate={70} scale={0.55} />
-      <LeafGroup x={820} y={40} rotate={110} scale={0.5} />
-      <LeafGroup x={350} y={490} rotate={230} scale={0.6} />
-      <LeafGroup x={900} y={480} rotate={310} scale={0.55} />
+      {/* Hanging leaves from top-right */}
+      <TropicalLeaf tx={1282} ty={-15} rot={-145} sc={1.2} grad="lf1" />
+      <TropicalLeaf tx={1240} ty={20} rot={-120} sc={1.1} grad="lf3" />
+      <TropicalLeaf tx={1200} ty={55} rot={-100} sc={1.0} grad="lf2" />
+      <TropicalLeaf tx={1158} ty={78} rot={-80} sc={0.9} grad="lf1" />
+      <TropicalLeaf tx={1140} ty={118} rot={-65} sc={0.85} grad="lf2" />
+      <SimpleLeaf tx={1175} ty={150} rot={-55} sc={0.7} />
+      <SimpleLeaf tx={1142} ty={185} rot={-40} sc={0.6} />
 
-      {/* === SMALL FLOATING DOTS (pollen/seeds) === */}
-      {[
-        [200, 60], [320, 90], [480, 45], [700, 30], [850, 70], [1000, 55],
-        [270, 460], [450, 500], [780, 490], [1050, 470],
-      ].map(([cx, cy], i) => (
-        <circle key={i} className="dot" cx={cx} cy={cy} r={2.5} />
+
+      {/* ════════════════════════════════════
+          BOTTOM-LEFT  —  rising stems
+      ════════════════════════════════════ */}
+
+      <path fill="none" stroke="#2D5A27" strokeWidth="3" strokeLinecap="round" opacity="0.22"
+        d="M -25 590 C 30 530 70 490 110 450 C 148 412 180 390 210 370" />
+      <path fill="none" stroke="#2D5A27" strokeWidth="2" strokeLinecap="round" opacity="0.18"
+        d="M 55 528 C 30 490 15 460 10 430" />
+      <path fill="none" stroke="#2D5A27" strokeWidth="2" strokeLinecap="round" opacity="0.18"
+        d="M 108 462 C 78 435 62 408 58 382" />
+
+      <TropicalLeaf tx={10} ty={425} rot={220} sc={1.1} grad="lf1" />
+      <TropicalLeaf tx={55} ty={470} rot={200} sc={0.95} grad="lf3" />
+      <TropicalLeaf tx={95} ty={440} rot={185} sc={1.0} grad="lf2" />
+      <TropicalLeaf tx={170} ty={378} rot={170} sc={0.9} grad="lf1" />
+      <TropicalLeaf tx={50} ty={510} rot={230} sc={0.8} grad="lf2" />
+      <SimpleLeaf tx={210} ty={355} rot={155} sc={0.65} />
+      <SimpleLeaf tx={135} ty={410} rot={195} sc={0.7} />
+
+
+      {/* ════════════════════════════════════
+          BOTTOM-RIGHT  —  lush cluster
+      ════════════════════════════════════ */}
+
+      <path fill="none" stroke="#2D5A27" strokeWidth="3" strokeLinecap="round" opacity="0.22"
+        d="M 1310 590 C 1245 535 1205 492 1175 452 C 1148 415 1135 385 1122 360" />
+      <path fill="none" stroke="#2D5A27" strokeWidth="2" strokeLinecap="round" opacity="0.18"
+        d="M 1238 528 C 1258 492 1270 465 1272 438" />
+      <path fill="none" stroke="#2D5A27" strokeWidth="2" strokeLinecap="round" opacity="0.18"
+        d="M 1182 468 C 1205 440 1215 415 1212 392" />
+
+      <TropicalLeaf tx={1272} ty={432} rot={-30} sc={1.1} grad="lf3" />
+      <TropicalLeaf tx={1238} ty={478} rot={-20} sc={1.0} grad="lf1" />
+      <TropicalLeaf tx={1188} ty={452} rot={-10} sc={0.95} grad="lf2" />
+      <TropicalLeaf tx={1125} ty={360} rot={10} sc={0.9} grad="lf1" />
+      <TropicalLeaf tx={1210} ty={390} rot={-45} sc={0.85} grad="lf3" />
+      <SimpleLeaf tx={1295} ty={510} rot={-25} sc={0.7} />
+      <SimpleLeaf tx={1165} ty={500} rot={5} sc={0.65} />
+
+
+      {/* ════════════════════════════════════
+          MID SCATTERED — small accent leaves
+      ════════════════════════════════════ */}
+      <SimpleLeaf tx={380} ty={18} rot={55} sc={0.6} />
+      <SimpleLeaf tx={520} ty={8} rot={30} sc={0.5} />
+      <SimpleLeaf tx={760} ty={14} rot={-40} sc={0.55} />
+      <SimpleLeaf tx={910} ty={22} rot={-20} sc={0.5} />
+      <SimpleLeaf tx={420} ty={535} rot={220} sc={0.55} />
+      <SimpleLeaf tx={640} ty={545} rot={200} sc={0.5} />
+      <SimpleLeaf tx={860} ty={530} rot={175} sc={0.52} />
+
+      {/* Tiny pollen dots */}
+      {([
+        [300,45],[460,30],[620,22],[780,38],[960,28],
+        [340,520],[500,540],[700,535],[920,520],[1080,510],
+      ] as [number,number][]).map(([cx,cy],i) => (
+        <circle key={i} cx={cx} cy={cy} r={2.2} fill="#3a7033" opacity="0.12" />
       ))}
-      {[
-        [240, 75], [380, 55], [600, 50], [760, 60], [930, 45],
-        [310, 480], [500, 510], [840, 505], [1090, 490],
-      ].map(([cx, cy], i) => (
-        <circle key={`s${i}`} className="dot" cx={cx} cy={cy} r={1.5} />
-      ))}
-
-      {/* === SMALL ACCENT LEAVES scattered === */}
-      <SmallLeaf x={305} y={35} rotate={40} />
-      <SmallLeaf x={960} y={55} rotate={-30} />
-      <SmallLeaf x={430} y={490} rotate={210} />
-      <SmallLeaf x={850} y={475} rotate={160} />
-      <SmallLeaf x={200} y={260} rotate={80} />
-      <SmallLeaf x={1060} y={250} rotate={-70} />
     </svg>
   );
 }
 
-/* Renders a cluster of 3 organic leaves around a point */
-function LeafGroup({ x, y, rotate, scale }: { x: number; y: number; rotate: number; scale: number }) {
-  const s = scale;
+/**
+ * A realistic tropical leaf with midrib + lateral veins.
+ * The leaf base is at (0,0), tip points upward along -Y.
+ */
+function TropicalLeaf({ tx, ty, rot, sc, grad }: {
+  tx: number; ty: number; rot: number; sc: number; grad: string;
+}) {
+  // Leaf outline: wide oval with pointed tip, notched base
+  const outline = "M 0 0 C -8 -8 -28 -28 -32 -55 C -34 -78 -22 -105 0 -120 C 22 -105 34 -78 32 -55 C 28 -28 8 -8 0 0 Z";
+  // Midrib
+  const midrib = "M 0 0 L 0 -120";
+  // Lateral veins (pairs)
+  const veins = [
+    "M 0 -25 C -14 -30 -22 -35 -28 -42",
+    "M 0 -25 C 14 -30 22 -35 28 -42",
+    "M 0 -45 C -16 -52 -25 -58 -30 -68",
+    "M 0 -45 C 16 -52 25 -58 30 -68",
+    "M 0 -65 C -15 -72 -22 -80 -26 -90",
+    "M 0 -65 C 15 -72 22 -80 26 -90",
+    "M 0 -83 C -10 -90 -15 -98 -16 -106",
+    "M 0 -83 C 10 -90 15 -98 16 -106",
+  ];
   return (
-    <g transform={`translate(${x},${y}) rotate(${rotate}) scale(${s})`}>
-      {/* Centre leaf */}
-      <path className="leaf-fill" d="M 0 0 C -6 -18 -4 -32 0 -38 C 4 -32 6 -18 0 0 Z" />
-      <path className="leaf" d="M 0 0 C -6 -18 -4 -32 0 -38 C 4 -32 6 -18 0 0 Z" />
-      <line className="branch" x1="0" y1="0" x2="0" y2="-38" style={{ opacity: 0.15 }} />
-      {/* Left leaf */}
-      <g transform="rotate(-35) translate(2,0)">
-        <path className="leaf-fill" d="M 0 0 C -5 -14 -3 -24 0 -28 C 3 -24 5 -14 0 0 Z" />
-        <path className="leaf" d="M 0 0 C -5 -14 -3 -24 0 -28 C 3 -24 5 -14 0 0 Z" />
-      </g>
-      {/* Right leaf */}
-      <g transform="rotate(35) translate(-2,0)">
-        <path className="leaf-fill" d="M 0 0 C -5 -14 -3 -24 0 -28 C 3 -24 5 -14 0 0 Z" />
-        <path className="leaf" d="M 0 0 C -5 -14 -3 -24 0 -28 C 3 -24 5 -14 0 0 Z" />
-      </g>
+    <g transform={`translate(${tx},${ty}) rotate(${rot}) scale(${sc})`}>
+      {/* Leaf body */}
+      <path d={outline} fill={`url(#${grad})`} />
+      {/* Leaf border */}
+      <path d={outline} fill="none" stroke="#2D5A27" strokeWidth="0.8" opacity="0.35" />
+      {/* Midrib */}
+      <path d={midrib} fill="none" stroke="#2D5A27" strokeWidth="1" opacity="0.3" strokeLinecap="round" />
+      {/* Veins */}
+      {veins.map((v, i) => (
+        <path key={i} d={v} fill="none" stroke="#2D5A27" strokeWidth="0.6" opacity="0.2" strokeLinecap="round" />
+      ))}
     </g>
   );
 }
 
-/* Single small accent leaf */
-function SmallLeaf({ x, y, rotate }: { x: number; y: number; rotate: number }) {
+/**
+ * A smaller, simpler oval accent leaf.
+ */
+function SimpleLeaf({ tx, ty, rot, sc }: { tx: number; ty: number; rot: number; sc: number }) {
   return (
-    <g transform={`translate(${x},${y}) rotate(${rotate})`}>
-      <ellipse className="leaf-fill" cx="0" cy="-10" rx="5" ry="11" />
-      <ellipse className="leaf" cx="0" cy="-10" rx="5" ry="11" />
-      <line className="branch" x1="0" y1="0" x2="0" y2="-20" style={{ opacity: 0.12 }} />
+    <g transform={`translate(${tx},${ty}) rotate(${rot}) scale(${sc})`}>
+      <path d="M 0 0 C -10 -8 -18 -22 -16 -38 C -14 -52 -6 -60 0 -62 C 6 -60 14 -52 16 -38 C 18 -22 10 -8 0 0 Z"
+        fill="#3a7033" opacity="0.18" />
+      <path d="M 0 0 C -10 -8 -18 -22 -16 -38 C -14 -52 -6 -60 0 -62 C 6 -60 14 -52 16 -38 C 18 -22 10 -8 0 0 Z"
+        fill="none" stroke="#2D5A27" strokeWidth="0.7" opacity="0.28" />
+      <path d="M 0 0 L 0 -62" fill="none" stroke="#2D5A27" strokeWidth="0.6" opacity="0.22" strokeLinecap="round" />
+      <path d="M 0 -18 C -8 -22 -12 -28 -14 -34" fill="none" stroke="#2D5A27" strokeWidth="0.5" opacity="0.18" strokeLinecap="round" />
+      <path d="M 0 -18 C 8 -22 12 -28 14 -34" fill="none" stroke="#2D5A27" strokeWidth="0.5" opacity="0.18" strokeLinecap="round" />
+      <path d="M 0 -36 C -7 -40 -10 -46 -11 -52" fill="none" stroke="#2D5A27" strokeWidth="0.5" opacity="0.15" strokeLinecap="round" />
+      <path d="M 0 -36 C 7 -40 10 -46 11 -52" fill="none" stroke="#2D5A27" strokeWidth="0.5" opacity="0.15" strokeLinecap="round" />
     </g>
   );
 }
