@@ -5,17 +5,21 @@ import CategoryPage from "@/pages/CategoryPage";
 import Cart from "@/pages/Cart";
 import Checkout from "@/pages/Checkout";
 import NotFound from "@/pages/not-found";
+import ScrollToTop from "@/components/ScrollToTop";
 
 function Router() {
   return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/products/:slug" component={ProductDetail} />
-      <Route path="/category/:slug" component={CategoryPage} />
-      <Route path="/cart" component={Cart} />
-      <Route path="/checkout" component={Checkout} />
-      <Route component={NotFound} />
-    </Switch>
+    <>
+      <ScrollToTop />
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/products/:slug" component={ProductDetail} />
+        <Route path="/category/:slug" component={CategoryPage} />
+        <Route path="/cart" component={Cart} />
+        <Route path="/checkout" component={Checkout} />
+        <Route component={NotFound} />
+      </Switch>
+    </>
   );
 }
 
