@@ -44,7 +44,7 @@ export default function ProductDetail() {
   const related = products.filter((p) => p.categorySlug === product.categorySlug && p.id !== product.id).slice(0, 4);
 
   function handleAddToCart() {
-    addItem(product, qty);
+    addItem(product!, qty);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   }
@@ -226,7 +226,7 @@ export default function ProductDetail() {
   );
 }
 
-function RelatedCard({ product }: { product: ReturnType<typeof products[0][""]> | any }) {
+function RelatedCard({ product }: { product: (typeof products)[0] }) {
   const [hovered, setHovered] = useState(false);
   const [, navigate] = useLocation();
   const { addItem } = useCart();
