@@ -4,7 +4,6 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  /* Orgativa brand colors */
   --color-org-primary: #2D5A27;
   --color-org-on-primary: #ffffff;
   --color-org-primary-container: #DFF2D8;
@@ -42,6 +41,7 @@ body {
   color: #1A1C1C;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -71,3 +71,14 @@ body {
 .font-serif {
   font-family: 'Noto Serif', serif;
 }
+
+/* Smooth horizontal scroll for nav strips */
+.scroll-x {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.scroll-x::-webkit-scrollbar { display: none; }
+
+/* Prevent text overflow globally */
+img { max-width: 100%; }
