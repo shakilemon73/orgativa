@@ -9,27 +9,24 @@ export default function Categories() {
 
   return (
     <section style={{ marginTop: 80 }}>
-      {/* Section header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 32 }}>
         <div>
-          <p style={{ fontSize: 11, color: P, textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.15em", fontFamily: "'Inter',sans-serif", margin: "0 0 6px" }}>Nature's Best</p>
-          <h2 style={{ fontFamily: "'Noto Serif',serif", fontSize: 32, color: "#1A1C1C", fontWeight: 400, margin: 0, lineHeight: 1.2 }}>Shop by Category</h2>
+          <p style={{ fontSize: 11, color: P, textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.15em", fontFamily: "'Inter',sans-serif", margin: "0 0 6px" }}>প্রকৃতির সেরা</p>
+          <h2 style={{ fontFamily: "'Noto Serif',serif", fontSize: 32, color: "#1A1C1C", fontWeight: 400, margin: 0, lineHeight: 1.2 }}>বিভাগ অনুযায়ী কেনাকাটা</h2>
         </div>
         <a href="/category/all" onClick={(e) => { e.preventDefault(); navigate("/category/all"); }}
           style={{ fontSize: 13, color: P, fontFamily: "'Inter',sans-serif", fontWeight: 600, textDecoration: "none", display: "flex", alignItems: "center", gap: 4, borderBottom: "1px solid rgba(45,90,39,0.3)", paddingBottom: 2 }}>
-          All categories
+          সব বিভাগ
           <span className="material-symbols-outlined" style={{ fontSize: 16 }}>arrow_forward</span>
         </a>
       </div>
 
-      {/* Horizontal scrollable row of pill-style category cards */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 12 }}>
         {categories.map((cat) => (
           <CategoryPill key={cat.slug} cat={cat} onClick={() => navigate(`/category/${cat.slug}`)} />
         ))}
       </div>
 
-      {/* Large feature cards below */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 20, marginTop: 20 }}>
         {categories.slice(0, 4).map((cat) => (
           <CategoryFeatureCard key={cat.slug} cat={cat} onClick={() => navigate(`/category/${cat.slug}`)} />
@@ -60,7 +57,7 @@ function CategoryFeatureCard({ cat, onClick }: { cat: typeof categories[0]; onCl
         <img src={cat.image} alt={cat.label}
           style={{ width: "100%", height: "100%", objectFit: "contain", padding: "20px", transform: hovered ? "scale(1.08)" : "scale(1)", transition: "transform 0.6s ease" }} />
         <div style={{ position: "absolute", top: 10, right: 10, backgroundColor: P, color: "#fff", borderRadius: 6, padding: "3px 8px", fontSize: 10, fontWeight: 700, fontFamily: "'Inter',sans-serif" }}>
-          {cat.count}+ items
+          {cat.count}+ পণ্য
         </div>
       </div>
       <div style={{ padding: "14px 16px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>

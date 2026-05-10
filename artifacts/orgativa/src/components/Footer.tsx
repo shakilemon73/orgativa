@@ -5,23 +5,23 @@ const P = "#2D5A27";
 const BG = "#0D1F0B";
 
 const shopLinks = [
-  { label: "Grocery", slug: "grocery" },
-  { label: "Wellness", slug: "wellness" },
-  { label: "Dry Fruits", slug: "dry-fruits" },
-  { label: "Honey", slug: "honey" },
-  { label: "Spices", slug: "spices" },
-  { label: "Tea & Coffee", slug: "tea-coffee" },
-  { label: "Grains", slug: "grains" },
+  { label: "মুদিখানা", slug: "grocery" },
+  { label: "স্বাস্থ্য", slug: "wellness" },
+  { label: "শুকনো ফল", slug: "dry-fruits" },
+  { label: "মধু", slug: "honey" },
+  { label: "মশলা", slug: "spices" },
+  { label: "চা ও কফি", slug: "tea-coffee" },
+  { label: "শস্য", slug: "grains" },
 ];
 
-const companyLinks = ["Our Story", "Sourcing Promise", "Sustainability", "Artisan Farmers", "Blog & Recipes"];
-const helpLinks = ["Shipping Policy", "Returns & Refunds", "Track My Order", "FAQs", "Contact Us"];
+const companyLinks = ["আমাদের গল্প", "সোর্সিং প্রতিশ্রুতি", "টেকসই উন্নয়ন", "কারিগর কৃষক", "ব্লগ ও রেসিপি"];
+const helpLinks = ["শিপিং নীতি", "রিটার্ন ও রিফান্ড", "অর্ডার ট্র্যাক করুন", "প্রশ্নোত্তর", "যোগাযোগ করুন"];
 
 const certBadges = [
-  { label: "Organic\nCertified", icon: "verified" },
-  { label: "Pesticide\nFree", icon: "eco" },
-  { label: "Lab\nTested", icon: "science" },
-  { label: "Farm\nDirect", icon: "agriculture" },
+  { label: "অর্গানিক\nপ্রত্যয়িত", icon: "verified" },
+  { label: "কীটনাশক\nমুক্ত", icon: "eco" },
+  { label: "ল্যাব\nপরীক্ষিত", icon: "science" },
+  { label: "খামার\nথেকে সরাসরি", icon: "agriculture" },
 ];
 
 const payments = [
@@ -44,11 +44,9 @@ export default function Footer() {
 
   return (
     <footer style={{ backgroundColor: BG, color: "#fff", position: "relative", overflow: "hidden" }}>
-
-      {/* Botanical SVG decorations */}
       <FooterBotanical />
 
-      {/* ── Certification strip ── */}
+      {/* সার্টিফিকেশন স্ট্রিপ */}
       <div style={{ borderBottom: "1px solid rgba(255,255,255,0.07)", position: "relative", zIndex: 2 }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 48px", display: "grid", gridTemplateColumns: "repeat(4,1fr)" }}>
           {certBadges.map((b, i) => (
@@ -56,29 +54,27 @@ export default function Footer() {
               <div style={{ width: 42, height: 42, borderRadius: 12, backgroundColor: "rgba(45,90,39,0.35)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                 <span className="material-symbols-outlined" style={{ fontSize: 22, color: "#9ACA94" }}>{b.icon}</span>
               </div>
-              <div>
-                <p style={{ fontSize: 13, fontWeight: 700, color: "#fff", fontFamily: "'Inter',sans-serif", margin: 0, lineHeight: 1.3 }}>
-                  {b.label.split("\n").map((line, i) => <span key={i}>{line}{i === 0 && <br />}</span>)}
-                </p>
-              </div>
+              <p style={{ fontSize: 13, fontWeight: 700, color: "#fff", fontFamily: "'Inter',sans-serif", margin: 0, lineHeight: 1.3 }}>
+                {b.label.split("\n").map((line, j) => <span key={j}>{line}{j === 0 && <br />}</span>)}
+              </p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* ── Newsletter ── */}
+      {/* নিউজলেটার */}
       <div style={{ borderBottom: "1px solid rgba(255,255,255,0.07)", position: "relative", zIndex: 2 }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "44px 48px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 40, flexWrap: "wrap" }}>
           <div style={{ maxWidth: 420 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
               <span style={{ fontSize: 18 }}>🌿</span>
-              <span style={{ fontSize: 11, color: "#6daf67", textTransform: "uppercase", letterSpacing: "0.16em", fontWeight: 700, fontFamily: "'Inter',sans-serif" }}>Stay Nourished</span>
+              <span style={{ fontSize: 11, color: "#6daf67", textTransform: "uppercase", letterSpacing: "0.16em", fontWeight: 700, fontFamily: "'Inter',sans-serif" }}>সুস্থ থাকুন</span>
             </div>
             <h3 style={{ fontFamily: "'Noto Serif',serif", fontSize: 26, fontWeight: 400, color: "#fff", margin: "0 0 8px", lineHeight: 1.2 }}>
-              Get seasonal picks &amp; exclusive offers
+              মৌসুমী পণ্য ও এক্সক্লুসিভ অফার পান
             </h3>
             <p style={{ fontSize: 13, color: "rgba(255,255,255,0.45)", fontFamily: "'Inter',sans-serif", margin: 0, lineHeight: 1.6 }}>
-              Join 20,000+ conscious shoppers. No spam — just pure goodness.
+              ২০,০০০+ সচেতন ক্রেতাদের সাথে যোগ দিন। কোনো স্প্যাম নেই — শুধু বিশুদ্ধতা।
             </p>
           </div>
 
@@ -86,15 +82,15 @@ export default function Footer() {
             <div style={{ display: "flex", alignItems: "center", gap: 12, backgroundColor: "rgba(45,90,39,0.25)", border: "1px solid rgba(45,90,39,0.4)", borderRadius: 14, padding: "18px 28px" }}>
               <span className="material-symbols-outlined" style={{ color: "#9ACA94", fontSize: 24 }}>check_circle</span>
               <div>
-                <p style={{ fontSize: 14, fontWeight: 700, color: "#9ACA94", fontFamily: "'Inter',sans-serif", margin: 0 }}>You're subscribed!</p>
-                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", fontFamily: "'Inter',sans-serif", margin: "2px 0 0" }}>Welcome to the Orgativa family 🌿</p>
+                <p style={{ fontSize: 14, fontWeight: 700, color: "#9ACA94", fontFamily: "'Inter',sans-serif", margin: 0 }}>সাবস্ক্রাইব হয়েছে!</p>
+                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", fontFamily: "'Inter',sans-serif", margin: "2px 0 0" }}>অর্গাটিভা পরিবারে স্বাগতম 🌿</p>
               </div>
             </div>
           ) : (
             <form onSubmit={handleSubscribe} style={{ display: "flex", gap: 0, flex: 1, maxWidth: 440 }}>
               <input
                 type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email address"
+                placeholder="আপনার ইমেইল ঠিকানা লিখুন"
                 required
                 style={{ flex: 1, padding: "13px 18px", backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", borderRight: "none", borderRadius: "10px 0 0 10px", color: "#fff", fontSize: 14, fontFamily: "'Inter',sans-serif", outline: "none", transition: "border 0.2s" }}
                 onFocus={(e) => { e.target.style.borderColor = "rgba(154,202,148,0.5)"; e.target.style.backgroundColor = "rgba(255,255,255,0.09)"; }}
@@ -104,35 +100,34 @@ export default function Footer() {
                 style={{ backgroundColor: P, color: "#fff", border: "none", borderRadius: "0 10px 10px 0", padding: "13px 22px", fontSize: 13, fontWeight: 700, fontFamily: "'Inter',sans-serif", cursor: "pointer", whiteSpace: "nowrap", letterSpacing: "0.04em", transition: "background 0.2s" }}
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "#3a7033"; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = P; }}>
-                Subscribe
+                সাবস্ক্রাইব করুন
               </button>
             </form>
           )}
         </div>
       </div>
 
-      {/* ── Main footer columns ── */}
+      {/* মূল ফুটার কলাম */}
       <div style={{ position: "relative", zIndex: 2 }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "60px 48px 48px", display: "grid", gridTemplateColumns: "2.2fr 1fr 1fr 1.1fr", gap: 56 }}>
 
-          {/* Brand column */}
+          {/* ব্র্যান্ড কলাম */}
           <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
             <a href="/" onClick={(e) => { e.preventDefault(); navigate("/"); }}
               style={{ display: "flex", alignItems: "center", gap: 9, textDecoration: "none", marginBottom: 20, width: "fit-content" }}>
               <div style={{ width: 34, height: 34, backgroundColor: P, borderRadius: "10px 3px 10px 3px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <span className="material-symbols-outlined" style={{ fontSize: 19, color: "#fff" }}>eco</span>
               </div>
-              <span style={{ fontFamily: "'Noto Serif',serif", fontSize: 20, fontWeight: 700, color: "#fff", letterSpacing: "-0.02em" }}>Orgativa</span>
+              <span style={{ fontFamily: "'Noto Serif',serif", fontSize: 20, fontWeight: 700, color: "#fff", letterSpacing: "-0.02em" }}>অর্গাটিভা</span>
             </a>
             <p style={{ fontSize: 14, color: "rgba(255,255,255,0.42)", fontFamily: "'Inter',sans-serif", lineHeight: 1.75, margin: "0 0 24px", maxWidth: 280 }}>
-              Bangladesh's trusted source for certified organic groceries and wellness products — from farm to your doorstep.
+              বাংলাদেশের বিশ্বস্ত অর্গানিক মুদিখানা ও স্বাস্থ্য পণ্যের উৎস — খামার থেকে আপনার দোরগোড়ায়।
             </p>
 
-            {/* Contact info */}
             <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
               {[
-                { icon: "location_on", text: "House 12, Road 5, Bashundhara R/A, Dhaka-1229" },
-                { icon: "phone", text: "+880 1700-000000" },
+                { icon: "location_on", text: "বাড়ি ১২, রোড ৫, বসুন্ধরা আ/এ, ঢাকা-১২২৯" },
+                { icon: "phone", text: "+৮৮০ ১৭০০-০০০০০০" },
                 { icon: "mail", text: "hello@orgativa.com.bd" },
               ].map(({ icon, text }) => (
                 <div key={icon} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
@@ -142,63 +137,57 @@ export default function Footer() {
               ))}
             </div>
 
-            {/* Social links */}
             <div style={{ display: "flex", gap: 8 }}>
               {[
-                { icon: "language", label: "Website" },
-                { icon: "mail_outline", label: "Email" },
-                { icon: "phone_android", label: "Phone" },
-                { icon: "chat_bubble_outline", label: "WhatsApp" },
+                { icon: "language", label: "ওয়েবসাইট" },
+                { icon: "mail_outline", label: "ইমেইল" },
+                { icon: "phone_android", label: "ফোন" },
+                { icon: "chat_bubble_outline", label: "হোয়াটসঅ্যাপ" },
               ].map(({ icon, label }) => (
                 <SocialBtn key={icon} icon={icon} label={label} />
               ))}
             </div>
           </div>
 
-          {/* Shop column */}
-          <FooterCol title="Shop" links={shopLinks.map((s) => s.label)}
+          {/* কেনাকাটা কলাম */}
+          <FooterCol title="কেনাকাটা" links={shopLinks.map((s) => s.label)}
             onLink={(label) => { const slug = shopLinks.find((s) => s.label === label)?.slug ?? "all"; navigate(`/category/${slug}`); }} />
 
-          {/* Company column */}
-          <FooterCol title="Company" links={companyLinks} />
+          {/* কোম্পানি কলাম */}
+          <FooterCol title="কোম্পানি" links={companyLinks} />
 
-          {/* Help column */}
+          {/* সহায়তা কলাম */}
           <div>
-            <FooterColTitle>Help</FooterColTitle>
+            <FooterColTitle>সহায়তা</FooterColTitle>
             <ul style={{ listStyle: "none", padding: 0, margin: "0 0 28px", display: "flex", flexDirection: "column", gap: 10 }}>
               {helpLinks.map((link) => (
-                <li key={link}>
-                  <FooterLink label={link} />
-                </li>
+                <li key={link}><FooterLink label={link} /></li>
               ))}
             </ul>
-            {/* App download badges */}
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              <p style={{ fontSize: 10, color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: "0.12em", fontWeight: 700, fontFamily: "'Inter',sans-serif", margin: "0 0 4px" }}>Download App</p>
-              {["App Store", "Google Play"].map((label) => (
+              <p style={{ fontSize: 10, color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: "0.12em", fontWeight: 700, fontFamily: "'Inter',sans-serif", margin: "0 0 4px" }}>অ্যাপ ডাউনলোড করুন</p>
+              {[{ label: "অ্যাপ স্টোর", icon: "phone_iphone" }, { label: "গুগল প্লে", icon: "android" }].map(({ label, icon }) => (
                 <button key={label}
                   style={{ display: "flex", alignItems: "center", gap: 10, backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, padding: "8px 14px", cursor: "pointer", width: "100%", transition: "background 0.2s" }}
                   onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,255,255,0.1)"; }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,255,255,0.05)"; }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: 18, color: "rgba(255,255,255,0.5)" }}>{label === "App Store" ? "phone_iphone" : "android"}</span>
+                  <span className="material-symbols-outlined" style={{ fontSize: 18, color: "rgba(255,255,255,0.5)" }}>{icon}</span>
                   <span style={{ fontSize: 12, color: "rgba(255,255,255,0.6)", fontFamily: "'Inter',sans-serif", fontWeight: 600 }}>{label}</span>
                 </button>
               ))}
             </div>
           </div>
-
         </div>
       </div>
 
-      {/* ── Bottom bar ── */}
+      {/* নিচের বার */}
       <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)", position: "relative", zIndex: 2 }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "22px 48px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
-
           <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
             <p style={{ fontSize: 12, color: "rgba(255,255,255,0.28)", fontFamily: "'Inter',sans-serif", margin: 0 }}>
-              © 2024 Orgativa. All rights reserved.
+              © ২০২৪ অর্গাটিভা। সর্বস্বত্ব সংরক্ষিত।
             </p>
-            {["Privacy Policy", "Terms of Service"].map((t, i) => (
+            {["গোপনীয়তা নীতি", "সেবার শর্তাবলী"].map((t) => (
               <a key={t} href="#" style={{ fontSize: 12, color: "rgba(255,255,255,0.32)", fontFamily: "'Inter',sans-serif", textDecoration: "none" }}
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#9ACA94"; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.32)"; }}>
@@ -206,21 +195,14 @@ export default function Footer() {
               </a>
             ))}
           </div>
-
-          {/* Payment methods */}
           <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-            <span style={{ fontSize: 10, color: "rgba(255,255,255,0.25)", fontFamily: "'Inter',sans-serif", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.12em", marginRight: 4 }}>We accept</span>
+            <span style={{ fontSize: 10, color: "rgba(255,255,255,0.25)", fontFamily: "'Inter',sans-serif", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.12em", marginRight: 4 }}>আমরা গ্রহণ করি</span>
             {payments.map((p) => (
-              <span key={p.name}
-                style={{ fontSize: 11, fontWeight: 800, color: p.color, backgroundColor: "rgba(255,255,255,0.06)", border: `1px solid ${p.color}40`, borderRadius: 6, padding: "4px 10px", fontFamily: "'Inter',sans-serif", letterSpacing: "0.03em" }}>
-                {p.name}
-              </span>
+              <span key={p.name} style={{ fontSize: 11, fontWeight: 800, color: p.color, backgroundColor: "rgba(255,255,255,0.06)", border: `1px solid ${p.color}40`, borderRadius: 6, padding: "4px 10px", fontFamily: "'Inter',sans-serif", letterSpacing: "0.03em" }}>{p.name}</span>
             ))}
           </div>
-
         </div>
       </div>
-
     </footer>
   );
 }
@@ -251,9 +233,7 @@ function FooterCol({ title, links, onLink }: { title: string; links: string[]; o
       <FooterColTitle>{title}</FooterColTitle>
       <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 11 }}>
         {links.map((link) => (
-          <li key={link}>
-            <FooterLink label={link} onClick={onLink ? () => onLink(link) : undefined} />
-          </li>
+          <li key={link}><FooterLink label={link} onClick={onLink ? () => onLink(link) : undefined} /></li>
         ))}
       </ul>
     </div>
@@ -273,7 +253,6 @@ function FooterLink({ label, onClick }: { label: string; onClick?: () => void })
   );
 }
 
-/* ── Footer botanical SVG ── */
 function FooterBotanical() {
   return (
     <svg viewBox="0 0 1280 600" preserveAspectRatio="xMidYMid slice"
@@ -286,36 +265,19 @@ function FooterBotanical() {
           .fb { fill: none; stroke: #3a7033; stroke-width: 1; opacity: 0.14; stroke-linecap: round; }
         `}</style>
       </defs>
-
-      {/* Top-left large frond */}
       <path className="fb" d="M -20 80 Q 80 60 160 120 Q 220 155 280 140" />
       <path className="fb" d="M 60 85 Q 90 50 125 38" />
       <path className="fb" d="M 120 105 Q 150 70 185 60" />
       <path className="fb" d="M 175 125 Q 205 90 238 78" />
-      {[
-        [125, 34, -35], [185, 56, 18], [60, 75, -65], [238, 74, 8],
-      ].map(([x, y, r], i) => <FooterLeaf key={i} x={x as number} y={y as number} rotate={r as number} scale={0.9} />)}
-
-      {/* Bottom-right frond */}
+      {[[125,34,-35],[185,56,18],[60,75,-65],[238,74,8]].map(([x,y,r],i) => <FooterLeaf key={i} x={x as number} y={y as number} rotate={r as number} scale={0.9} />)}
       <path className="fb" d="M 1300 520 Q 1220 480 1185 430 Q 1158 390 1120 375" />
       <path className="fb" d="M 1220 480 Q 1250 440 1270 415" />
       <path className="fb" d="M 1175 425 Q 1205 393 1225 370" />
-      {[
-        [1268, 411, -22], [1225, 367, -48], [1120, 372, 250],
-      ].map(([x, y, r], i) => <FooterLeaf key={`b${i}`} x={x as number} y={y as number} rotate={r as number} scale={0.8} />)}
-
-      {/* Top-right small cluster */}
+      {[[1268,411,-22],[1225,367,-48],[1120,372,250]].map(([x,y,r],i) => <FooterLeaf key={`b${i}`} x={x as number} y={y as number} rotate={r as number} scale={0.8} />)}
       <path className="fb" d="M 1280 40 Q 1220 70 1195 120 Q 1175 160 1145 175" />
       <path className="fb" d="M 1215 75 Q 1185 105 1168 130" />
-      {[
-        [1165, 132, 145], [1145, 174, 165],
-      ].map(([x, y, r], i) => <FooterLeaf key={`tr${i}`} x={x as number} y={y as number} rotate={r as number} scale={0.7} />)}
-
-      {/* Scattered dots */}
-      {[
-        [240, 55], [500, 30], [700, 45], [950, 60], [1050, 35],
-        [300, 550], [550, 570], [800, 555], [1100, 545],
-      ].map(([cx, cy], i) => (
+      {[[1165,132,145],[1145,174,165]].map(([x,y,r],i) => <FooterLeaf key={`tr${i}`} x={x as number} y={y as number} rotate={r as number} scale={0.7} />)}
+      {[[240,55],[500,30],[700,45],[950,60],[1050,35],[300,550],[550,570],[800,555],[1100,545]].map(([cx,cy],i) => (
         <circle key={`d${i}`} cx={cx} cy={cy} r={2} style={{ fill: "#3a7033", opacity: 0.1 }} />
       ))}
     </svg>

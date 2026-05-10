@@ -1,10 +1,8 @@
-const P = "#2D5A27";
-
 const items = [
-  { icon: "local_shipping", title: "Free Delivery", desc: "On all orders over ৳1,000 within Bangladesh", color: "#2D5A27" },
-  { icon: "verified_user", title: "100% Authentic", desc: "Lab-tested, certified organic. No compromise.", color: "#7C3AED" },
-  { icon: "replay", title: "Easy 7-Day Returns", desc: "Not happy? Return hassle-free, no questions asked.", color: "#0891B2" },
-  { icon: "support_agent", title: "24/7 Support", desc: "WhatsApp & phone support in Bangla and English.", color: "#D64545" },
+  { icon: "local_shipping", title: "বিনামূল্যে ডেলিভারি", desc: "বাংলাদেশে ৳১,০০০+ সকল অর্ডারে বিনামূল্যে ডেলিভারি", color: "#2D5A27" },
+  { icon: "verified_user", title: "১০০% খাঁটি পণ্য", desc: "ল্যাব-পরীক্ষিত, প্রত্যয়িত অর্গানিক। কোনো আপস নেই।", color: "#7C3AED" },
+  { icon: "replay", title: "সহজ ৭ দিনের রিটার্ন", desc: "সন্তুষ্ট না? ঝামেলামুক্ত রিটার্ন, কোনো প্রশ্ন নেই।", color: "#0891B2" },
+  { icon: "support_agent", title: "২৪/৭ সহায়তা", desc: "বাংলায় হোয়াটসঅ্যাপ ও ফোন সহায়তা সবসময় পাবেন।", color: "#D64545" },
 ];
 
 export default function TrustBanner() {
