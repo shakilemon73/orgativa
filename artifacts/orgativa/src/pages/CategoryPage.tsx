@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { useParams, useLocation } from "wouter";
-import { products, categories, formatPrice } from "@/data/products";
+import { formatPrice } from "@/data/products";
+import { useProducts, useCategories } from "@/lib/supabase-hooks";
 import { useCart } from "@/context/CartContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -30,6 +31,8 @@ export default function CategoryPage() {
   const { slug } = useParams<{ slug: string }>();
   const [, navigate] = useLocation();
   const { isMobile, isTablet } = useResponsive();
+  const { data: allProducts } = useProducts();
+  const { data: categories } = useCategories();
   const category = categories.find((c) => c.slug === slug);
   const [sortBy, setSortBy] = useState("featured");
   const [maxPrice, setMaxPrice] = useState(5000);
@@ -37,13 +40,13 @@ export default function CategoryPage() {
   const [filtersOpen, setFiltersOpen] = useState(false);
 
   const filtered = useMemo(() => {
-    let list = slug === "all" ? products : products.filter((p) => p.categorySlug === slug);
+    let list = slug === "all" ? allProducts : allProducts.filter((p) => p.categorySlug === slug);
     list = list.filter((p) => p.price <= maxPrice && p.rating >= minRating);
     if (sortBy === "price-asc") list = [...list].sort((a, b) => a.price - b.price);
     else if (sortBy === "price-desc") list = [...list].sort((a, b) => b.price - a.price);
     else if (sortBy === "rating") list = [...list].sort((a, b) => b.rating - a.rating);
     return list;
-  }, [slug, sortBy, maxPrice, minRating]);
+  }, [slug, sortBy, maxPrice, minRating, allProducts]);
 
   const displayName = category?.label ?? (slug === "all" ? "সব পণ্য" : slug);
   const px = isMobile ? "16px" : isTablet ? "24px" : "64px";
@@ -217,7 +220,7 @@ function FilterCatItem({ label, slug, active, count }: { label: string; slug: st
   );
 }
 
-function CategoryProductCard({ product, compact }: { product: (typeof products)[0]; compact?: boolean }) {
+function CategoryProductCard({ product, compact }: { product: import("@/data/products").Product; compact?: boolean }) {
   const [hovered, setHovered] = useState(false);
   const [, navigate] = useLocation();
   const { addItem } = useCart();

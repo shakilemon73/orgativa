@@ -82,3 +82,9 @@ body {
 
 /* Prevent text overflow globally */
 img { max-width: 100%; }
+
+/* Spin animation for loading states */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}

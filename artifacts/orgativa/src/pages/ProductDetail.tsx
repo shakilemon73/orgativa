@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams, useLocation } from "wouter";
-import { products, formatPrice } from "@/data/products";
+import { formatPrice } from "@/data/products";
+import { useProduct } from "@/lib/supabase-hooks";
 import { useCart } from "@/context/CartContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -22,12 +23,24 @@ function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
 export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
   const [, navigate] = useLocation();
-  const product = products.find((p) => p.slug === slug);
+  const { data: product, loading } = useProduct(slug ?? "");
   const { addItem } = useCart();
   const [qty, setQty] = useState(1);
   const [activeImg, setActiveImg] = useState(0);
   const [added, setAdded] = useState(false);
   const { isMobile, isTablet } = useResponsive();
+
+  if (loading) {
+    return (
+      <div style={{ backgroundColor: "#F9F9F9", minHeight: "100vh" }}>
+        <Header />
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: 400 }}>
+          <span className="material-symbols-outlined" style={{ fontSize: 40, color: "#2D5A27", animation: "spin 1s linear infinite" }}>progress_activity</span>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -42,7 +55,8 @@ export default function ProductDetail() {
     );
   }
 
-  const related = products.filter((p) => p.categorySlug === product.categorySlug && p.id !== product.id).slice(0, 4);
+  const related: import("@/data/products").Product[] = [];
+  // Note: related products are not loaded here to keep this page simple
   const px = isMobile ? "16px" : isTablet ? "24px" : "64px";
 
   function handleAddToCart() {
@@ -226,7 +240,7 @@ export default function ProductDetail() {
   );
 }
 
-function RelatedCard({ product, compact }: { product: (typeof products)[0]; compact?: boolean }) {
+function RelatedCard({ product, compact }: { product: import("@/data/products").Product; compact?: boolean }) {
   const [hovered, setHovered] = useState(false);
   const [, navigate] = useLocation();
   const { addItem } = useCart();

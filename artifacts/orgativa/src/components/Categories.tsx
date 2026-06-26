@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
-import { categories } from "@/data/products";
+import { type Category } from "@/data/products";
+import { useCategories } from "@/lib/supabase-hooks";
 import { useResponsive } from "@/hooks/use-responsive";
 
 const P = "#2D5A27";
@@ -8,6 +9,7 @@ const P = "#2D5A27";
 export default function Categories() {
   const [, navigate] = useLocation();
   const { isMobile, isTablet } = useResponsive();
+  const { data: categories } = useCategories();
 
   return (
     <section style={{ marginTop: isMobile ? 48 : 80 }}>
@@ -48,7 +50,7 @@ export default function Categories() {
   );
 }
 
-function MobileCategoryPill({ cat, onClick }: { cat: typeof categories[0]; onClick: () => void }) {
+function MobileCategoryPill({ cat, onClick }: { cat: Category; onClick: () => void }) {
   return (
     <button onClick={onClick}
       style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, padding: "12px 16px", borderRadius: 12, backgroundColor: "#fff", border: "1px solid #E8E8E8", cursor: "pointer", flexShrink: 0, minWidth: 72, transition: "all 0.2s" }}
@@ -60,7 +62,7 @@ function MobileCategoryPill({ cat, onClick }: { cat: typeof categories[0]; onCli
   );
 }
 
-function CategoryPill({ cat, onClick }: { cat: typeof categories[0]; onClick: () => void }) {
+function CategoryPill({ cat, onClick }: { cat: Category; onClick: () => void }) {
   const [hovered, setHovered] = useState(false);
   return (
     <button onClick={onClick} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
@@ -71,7 +73,7 @@ function CategoryPill({ cat, onClick }: { cat: typeof categories[0]; onClick: ()
   );
 }
 
-function CategoryFeatureCard({ cat, onClick, compact }: { cat: typeof categories[0]; onClick: () => void; compact?: boolean }) {
+function CategoryFeatureCard({ cat, onClick, compact }: { cat: Category; onClick: () => void; compact?: boolean }) {
   const [hovered, setHovered] = useState(false);
   return (
     <div onClick={onClick} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}

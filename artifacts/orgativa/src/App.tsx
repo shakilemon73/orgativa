@@ -6,17 +6,39 @@ import Cart from "@/pages/Cart";
 import Checkout from "@/pages/Checkout";
 import NotFound from "@/pages/not-found";
 import ScrollToTop from "@/components/ScrollToTop";
+import AdminLogin from "@/pages/admin/AdminLogin";
+import AdminDashboard from "@/pages/admin/AdminDashboard";
+import AdminProducts from "@/pages/admin/AdminProducts";
+import AdminProductForm from "@/pages/admin/AdminProductForm";
+import AdminCategories from "@/pages/admin/AdminCategories";
+import AdminOrders from "@/pages/admin/AdminOrders";
+import AdminOrderDetail from "@/pages/admin/AdminOrderDetail";
+import AdminSettings from "@/pages/admin/AdminSettings";
 
 function Router() {
   return (
     <>
       <ScrollToTop />
       <Switch>
+        {/* Customer routes */}
         <Route path="/" component={Home} />
         <Route path="/products/:slug" component={ProductDetail} />
         <Route path="/category/:slug" component={CategoryPage} />
         <Route path="/cart" component={Cart} />
         <Route path="/checkout" component={Checkout} />
+
+        {/* Admin routes */}
+        <Route path="/admin" component={() => { window.location.replace("/admin/dashboard"); return null; }} />
+        <Route path="/admin/login" component={AdminLogin} />
+        <Route path="/admin/dashboard" component={AdminDashboard} />
+        <Route path="/admin/products" component={AdminProducts} />
+        <Route path="/admin/products/new" component={() => <AdminProductForm />} />
+        <Route path="/admin/products/:id/edit" component={AdminProductForm} />
+        <Route path="/admin/categories" component={AdminCategories} />
+        <Route path="/admin/orders" component={AdminOrders} />
+        <Route path="/admin/orders/:id" component={AdminOrderDetail} />
+        <Route path="/admin/settings" component={AdminSettings} />
+
         <Route component={NotFound} />
       </Switch>
     </>

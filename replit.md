@@ -1,6 +1,6 @@
-# [Project name]
+# Orgativa
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A professional organic grocery e-commerce website for Bangladesh with full Bangla localization, Supabase backend, and a complete admin panel.
 
 ## Run & Operate
 
@@ -22,15 +22,25 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/orgativa/` — React + Vite web app (customer storefront + admin panel)
+- `artifacts/orgativa/src/lib/supabase.ts` — Supabase client + TypeScript DB types
+- `artifacts/orgativa/src/lib/supabase-hooks.ts` — React hooks (useProducts, useProduct, useCategories, submitOrder) with static data fallback
+- `artifacts/orgativa/src/data/products.ts` — Static fallback data + shared types (Product, Category)
+- `artifacts/orgativa/src/pages/admin/` — Full admin panel (Dashboard, Products, Categories, Orders, Settings)
+- `supabase-schema.sql` — Full PostgreSQL schema with seed data (run this in Supabase SQL editor)
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- **Supabase is optional**: When `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` are absent, all customer pages fall back to hardcoded static data — the site always renders.
+- **Supabase client is `null` when unconfigured**: `createClient()` throws on empty strings, so `supabase` is typed as `SupabaseClient | null`. Use `supabase!` (non-null assertion) only after an `isSupabaseConfigured` guard.
+- **Admin panel uses Supabase directly** (no Express API layer). Admin routes live at `/admin/*` and are protected by a `useEffect` auth redirect in `AdminLayout`.
+- **Routing**: wouter with `BASE_URL` base — all routes must be relative to the app's base path.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+- **Storefront**: Home page, category browsing, product detail, cart, checkout (bKash/Nagad/COD)
+- **Admin panel** (`/admin/*`): Login, dashboard with revenue stats, product management (CRUD), category management, order tracking with status updates, site settings
+- All text in Bangla; BDT pricing; Bangladesh delivery zones
 
 ## User preferences
 
@@ -38,7 +48,10 @@ _Populate as you build — explicit user instructions worth remembering across s
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Run `supabase-schema.sql` in the Supabase SQL editor before connecting; it creates all tables, RLS policies, indexes, and seed data.
+- Set secrets `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` via Replit secrets panel — the site works without them (static fallback), but the admin panel and live data require them.
+- The `Category` type must be exported from `src/data/products.ts` — it's used by both static data and Supabase hooks.
+- Admin auth uses Supabase's built-in `auth.signInWithPassword` — create an admin user via the Supabase dashboard (Authentication → Users).
 
 ## Pointers
 

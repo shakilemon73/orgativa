@@ -5,6 +5,7 @@ import { formatPrice } from "@/data/products";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useResponsive } from "@/hooks/use-responsive";
+import { submitOrder } from "@/lib/supabase-hooks";
 
 const P = "#2D5A27";
 
@@ -56,7 +57,37 @@ export default function Checkout() {
     thana: "", address: "", postcode: "", notes: "",
   });
   function setF(key: string, val: string) { setForm((prev) => ({ ...prev, [key]: val })); }
-  function handlePlaceOrder() { clearCart(); setOrderPlaced(true); }
+
+  async function handlePlaceOrder() {
+    await submitOrder({
+      orderNumber: orderId,
+      customerName: form.fullName,
+      phone: form.phone,
+      email: form.email || undefined,
+      division: form.division,
+      district: form.district,
+      thana: form.thana,
+      address: form.address,
+      postcode: form.postcode || undefined,
+      paymentMethod: payMethod,
+      paymentNumber: mobileNumber || undefined,
+      transactionId: transactionId || undefined,
+      subtotal,
+      deliveryFee: deliveryCharge,
+      total,
+      notes: form.notes || undefined,
+      items: items.map((item) => ({
+        productId: typeof item.product.id === "string" ? item.product.id : undefined,
+        productName: item.product.name,
+        productImage: item.product.image,
+        quantity: item.quantity,
+        unitPrice: item.product.price,
+        totalPrice: item.product.price * item.quantity,
+      })),
+    });
+    clearCart();
+    setOrderPlaced(true);
+  }
 
   if (orderPlaced) return <OrderSuccess orderId={orderId} total={total} />;
 

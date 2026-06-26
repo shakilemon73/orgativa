@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
-import { products, formatPrice } from "@/data/products";
+import { formatPrice, type Product } from "@/data/products";
+import { useProducts } from "@/lib/supabase-hooks";
 import { useCart } from "@/context/CartContext";
 import { useResponsive } from "@/hooks/use-responsive";
 
@@ -19,6 +20,7 @@ export default function Products() {
     { id: "wellness", label: "স্বাস্থ্য" },
   ];
 
+  const { data: products } = useProducts();
   const filtered = activeTab === "all" ? products : products.filter((p) => p.categorySlug === activeTab);
 
   return (
@@ -63,7 +65,7 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
-function ProductCard({ product }: { product: (typeof products)[0] }) {
+function ProductCard({ product }: { product: Product }) {
   const [hovered, setHovered] = useState(false);
   const [added, setAdded] = useState(false);
   const [, navigate] = useLocation();

@@ -1,3 +1,11 @@
+export interface Category {
+  slug: string;
+  label: string;
+  icon: string;
+  image: string;
+  count: number;
+}
+
 export interface Product {
   id: number;
   slug: string;
