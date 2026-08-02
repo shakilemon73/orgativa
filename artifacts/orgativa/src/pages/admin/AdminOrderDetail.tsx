@@ -41,9 +41,10 @@ export default function AdminOrderDetail() {
   function showToast(msg: string) { setToast(msg); setTimeout(() => setToast(null), 3000); }
 
   useEffect(() => {
+    if (!supabase) { setLoading(false); return; }
     Promise.all([
-      supabase!.from("orders").select("*").eq("id", id).single(),
-      supabase!.from("order_items").select("*").eq("order_id", id),
+      supabase.from("orders").select("*").eq("id", id).single(),
+      supabase.from("order_items").select("*").eq("order_id", id),
     ]).then(([orderRes, itemsRes]) => {
       setOrder(orderRes.data ?? null);
       setItems(itemsRes.data ?? []);
@@ -52,8 +53,9 @@ export default function AdminOrderDetail() {
   }, [id]);
 
   async function updateStatus(status: OrderStatus) {
+    if (!supabase) return;
     setUpdatingStatus(true);
-    await supabase!.from("orders").update({ status }).eq("id", id);
+    await supabase.from("orders").update({ status }).eq("id", id);
     setOrder((prev) => prev ? { ...prev, status } : prev);
     showToast(`অবস্থা আপডেট: ${STATUS_LABELS[status].label}`);
     setUpdatingStatus(false);

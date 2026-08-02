@@ -62,9 +62,10 @@ export default function AdminProductForm() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    supabase!.from("categories").select("*").order("display_order").then(({ data }) => setCategories(data ?? []));
+    if (!supabase) { setLoading(false); return; }
+    supabase.from("categories").select("*").order("display_order").then(({ data }) => setCategories(data ?? []));
     if (!isEdit) return;
-    supabase!.from("products").select("*").eq("id", id).single().then(({ data: p }) => {
+    supabase.from("products").select("*").eq("id", id).single().then(({ data: p }) => {
       if (!p) return;
       setForm({
         slug: p.slug, name: p.name, category_label: p.category_label, category_slug: p.category_slug,
@@ -109,11 +110,12 @@ export default function AdminProductForm() {
       display_order: parseInt(form.display_order) || 0,
     };
 
+    if (!supabase) { setError("Supabase is not configured."); setSaving(false); return; }
     if (isEdit) {
-      const { error: err } = await supabase!.from("products").update(payload).eq("id", id);
+      const { error: err } = await supabase.from("products").update(payload).eq("id", id);
       if (err) { setError(err.message); setSaving(false); return; }
     } else {
-      const { error: err } = await supabase!.from("products").insert(payload);
+      const { error: err } = await supabase.from("products").insert(payload);
       if (err) { setError(err.message); setSaving(false); return; }
     }
 

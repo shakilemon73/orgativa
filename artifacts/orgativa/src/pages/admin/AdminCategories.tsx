@@ -27,8 +27,9 @@ export default function AdminCategories() {
   }
 
   async function load() {
+    if (!supabase) { setLoading(false); return; }
     setLoading(true);
-    const { data } = await supabase!.from("categories").select("*").order("display_order");
+    const { data } = await supabase.from("categories").select("*").order("display_order");
     setCategories(data ?? []);
     setLoading(false);
   }
@@ -59,11 +60,12 @@ export default function AdminCategories() {
       display_order: parseInt(form.display_order) || 0,
     };
 
+    if (!supabase) { setSaving(false); return; }
     if (editId) {
-      await supabase!.from("categories").update(payload).eq("id", editId);
+      await supabase.from("categories").update(payload).eq("id", editId);
       showToast("বিভাগ আপডেট হয়েছে।");
     } else {
-      await supabase!.from("categories").insert(payload);
+      await supabase.from("categories").insert(payload);
       showToast("নতুন বিভাগ যোগ হয়েছে।");
     }
     setSaving(false);
@@ -72,8 +74,9 @@ export default function AdminCategories() {
   }
 
   async function deleteCategory(id: string, label: string) {
+    if (!supabase) return;
     if (!confirm(`"${label}" মুছে ফেলতে চান?`)) return;
-    await supabase!.from("categories").delete().eq("id", id);
+    await supabase.from("categories").delete().eq("id", id);
     setCategories((prev) => prev.filter((c) => c.id !== id));
     showToast("বিভাগ মুছে ফেলা হয়েছে।");
   }

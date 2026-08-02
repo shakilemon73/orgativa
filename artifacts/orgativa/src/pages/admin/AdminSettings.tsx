@@ -22,7 +22,8 @@ export default function AdminSettings() {
   function showToast(msg: string) { setToast(msg); setTimeout(() => setToast(null), 3000); }
 
   useEffect(() => {
-    supabase!.from("site_settings").select("*").order("group_name").then(({ data }) => {
+    if (!supabase) { setLoading(false); return; }
+    supabase.from("site_settings").select("*").order("group_name").then(({ data }) => {
       setSettings(data ?? []);
       const v: Record<string, string> = {};
       (data ?? []).forEach((s) => { v[s.key] = s.value; });
@@ -32,8 +33,9 @@ export default function AdminSettings() {
   }, []);
 
   async function saveSetting(key: string) {
+    if (!supabase) return;
     setSaving((prev) => ({ ...prev, [key]: true }));
-    await supabase!.from("site_settings").update({ value: values[key] }).eq("key", key);
+    await supabase.from("site_settings").update({ value: values[key] }).eq("key", key);
     setSaving((prev) => ({ ...prev, [key]: false }));
     showToast("সেটিং সংরক্ষিত হয়েছে।");
   }

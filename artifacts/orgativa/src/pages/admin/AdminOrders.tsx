@@ -27,8 +27,9 @@ export default function AdminOrders() {
   const [search, setSearch] = useState("");
 
   async function load() {
+    if (!supabase) { setLoading(false); return; }
     setLoading(true);
-    let q = supabase!.from("orders").select("*").order("created_at", { ascending: false });
+    let q = supabase.from("orders").select("*").order("created_at", { ascending: false });
     if (statusFilter !== "all") q = q.eq("status", statusFilter);
     const { data } = await q;
     setOrders(data ?? []);

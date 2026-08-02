@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
-import { supabase } from "@/lib/supabase";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 
 const P = "#2D5A27";
 const DARK = "#0D1F0B";
@@ -25,7 +25,11 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
   const [user, setUser] = useState<{ email: string } | null>(null);
 
   useEffect(() => {
-    supabase!.auth.getUser().then(({ data }) => {
+    if (!supabase) {
+      navigate("/admin/login");
+      return;
+    }
+    supabase.auth.getUser().then(({ data }) => {
       if (!data.user) {
         navigate("/admin/login");
         return;
@@ -35,7 +39,7 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
   }, []);
 
   async function handleLogout() {
-    await supabase!.auth.signOut();
+    if (supabase) await supabase.auth.signOut();
     navigate("/admin/login");
   }
 

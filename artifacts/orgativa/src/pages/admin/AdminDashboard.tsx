@@ -24,10 +24,11 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!supabase) { setLoading(false); return; }
     Promise.all([
-      supabase!.from("orders").select("id, total, status, created_at, customer_name, order_number").order("created_at", { ascending: false }).limit(8),
-      supabase!.from("products").select("id", { count: "exact", head: true }),
-      supabase!.from("orders").select("total, status"),
+      supabase.from("orders").select("id, total, status, created_at, customer_name, order_number").order("created_at", { ascending: false }).limit(8),
+      supabase.from("products").select("id", { count: "exact", head: true }),
+      supabase.from("orders").select("total, status"),
     ]).then(([ordersRes, productsRes, allOrdersRes]) => {
       const orders = ordersRes.data ?? [];
       const allOrders = allOrdersRes.data ?? [];

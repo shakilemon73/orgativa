@@ -23,8 +23,9 @@ export default function AdminProducts() {
   }
 
   async function loadProducts() {
+    if (!supabase) { setLoading(false); return; }
     setLoading(true);
-    const { data } = await supabase!.from("products").select("*").order("display_order");
+    const { data } = await supabase.from("products").select("*").order("display_order");
     setProducts(data ?? []);
     setLoading(false);
   }
@@ -32,15 +33,17 @@ export default function AdminProducts() {
   useEffect(() => { loadProducts(); }, []);
 
   async function toggleStock(id: string, current: boolean) {
-    await supabase!.from("products").update({ in_stock: !current }).eq("id", id);
+    if (!supabase) return;
+    await supabase.from("products").update({ in_stock: !current }).eq("id", id);
     setProducts((prev) => prev.map((p) => p.id === id ? { ...p, in_stock: !current } : p));
     showToast(!current ? "পণ্য স্টকে আছে হিসাবে চিহ্নিত।" : "পণ্য স্টকের বাইরে হিসাবে চিহ্নিত।");
   }
 
   async function deleteProduct(id: string, name: string) {
+    if (!supabase) return;
     if (!confirm(`"${name}" মুছে ফেলতে চান? এটি পূর্বাবস্থায় ফেরানো যাবে না।`)) return;
     setDeleting(id);
-    await supabase!.from("products").delete().eq("id", id);
+    await supabase.from("products").delete().eq("id", id);
     setProducts((prev) => prev.filter((p) => p.id !== id));
     setDeleting(null);
     showToast("পণ্য মুছে ফেলা হয়েছে।");
@@ -138,7 +141,8 @@ export default function AdminProducts() {
                     </td>
                     <td style={{ padding: "12px 16px" }}>
                       <button onClick={async () => {
-                        await supabase!.from("products").update({ featured: !p.featured }).eq("id", p.id);
+                        if (!supabase) return;
+                        await supabase.from("products").update({ featured: !p.featured }).eq("id", p.id);
                         setProducts((prev) => prev.map((x) => x.id === p.id ? { ...x, featured: !p.featured } : x));
                       }}
                         style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 11, fontFamily: "'Inter',sans-serif", padding: "3px 10px", borderRadius: 6, border: "1px solid #E8E8E8", cursor: "pointer", backgroundColor: p.featured ? "#FEF9C3" : "#fff", color: p.featured ? "#92400E" : "#737973" }}>

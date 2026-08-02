@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { useLocation } from "wouter";
 
 const P = "#2D5A27";
@@ -16,7 +16,12 @@ export default function AdminLogin() {
     setError(null);
     setLoading(true);
 
-    const { error: err } = await supabase!.auth.signInWithPassword({ email, password });
+    if (!supabase) {
+      setError("Supabase is not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.");
+      setLoading(false);
+      return;
+    }
+    const { error: err } = await supabase.auth.signInWithPassword({ email, password });
     if (err) {
       setError("ইমেইল বা পাসওয়ার্ড সঠিক নয়।");
     } else {
