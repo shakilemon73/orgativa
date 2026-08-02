@@ -59,7 +59,7 @@ export default function AdminSettings() {
         <div style={{ position: "fixed", bottom: 24, right: 24, backgroundColor: P, color: "#fff", borderRadius: 10, padding: "12px 20px", fontSize: 13, fontFamily: "'Inter',sans-serif", fontWeight: 600, zIndex: 999 }}>{toast}</div>
       )}
 
-      <div style={{ maxWidth: 720 }}>
+      <div style={{ maxWidth: 1080, margin: 0 }}>
         {loading ? (
           Array.from({ length: 3 }).map((_, i) => (
             <div key={i} style={{ backgroundColor: "#fff", borderRadius: 14, border: "1px solid #E8E8E8", padding: 24, marginBottom: 20 }}>

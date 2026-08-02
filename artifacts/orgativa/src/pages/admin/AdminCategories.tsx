@@ -91,8 +91,8 @@ export default function AdminCategories() {
         </div>
       )}
 
-      <div style={{ maxWidth: 900 }}>
-        <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 20 }}>
+      <div style={{ maxWidth: 1080, margin: 0 }}>
+        <div style={{ display: "flex", gap: 16, justifyContent: "flex-end", marginBottom: 24, flexWrap: "wrap", alignItems: "center" }}>
           <button onClick={startNew}
             style={{ backgroundColor: P, color: "#fff", border: "none", borderRadius: 10, padding: "10px 20px", fontSize: 14, fontWeight: 600, fontFamily: "'Inter',sans-serif", cursor: "pointer", display: "flex", alignItems: "center", gap: 8 }}>
             <span className="material-symbols-outlined" style={{ fontSize: 18 }}>add</span>

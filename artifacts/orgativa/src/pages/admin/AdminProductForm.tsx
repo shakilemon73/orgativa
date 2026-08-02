@@ -132,11 +132,9 @@ export default function AdminProductForm() {
     );
   }
 
-  const grid2: React.CSSProperties = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 };
-
   return (
     <AdminLayout title={isEdit ? "পণ্য সম্পাদনা" : "নতুন পণ্য যোগ করুন"}>
-      <div style={{ maxWidth: 800 }}>
+      <div style={{ maxWidth: 1080, margin: 0 }}>
         <button onClick={() => navigate("/admin/products")}
           style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", cursor: "pointer", color: P, fontSize: 13, fontFamily: "'Inter',sans-serif", marginBottom: 20, fontWeight: 600 }}>
           <span className="material-symbols-outlined" style={{ fontSize: 18 }}>arrow_back</span>
@@ -149,7 +147,7 @@ export default function AdminProductForm() {
           <div style={{ backgroundColor: "#fff", borderRadius: 14, border: "1px solid #E8E8E8", padding: 24 }}>
             <h3 style={{ fontFamily: "'Noto Serif',serif", fontSize: 18, fontWeight: 400, color: "#1A1C1C", margin: "0 0 20px" }}>মূল তথ্য</h3>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              <div style={grid2}>
+              <div className="admin-grid-2">
                 <F label="পণ্যের নাম" required>
                   <input style={inStyle} value={form.name} required onChange={(e) => { set("name", e.target.value); set("slug", e.target.value.toLowerCase().replace(/\s+/g, "-").replace(/[^\w\-]/g, "")); }}
                     onFocus={(e) => (e.target.style.borderColor = P)} onBlur={(e) => (e.target.style.borderColor = "#E8E8E8")} />
@@ -159,7 +157,7 @@ export default function AdminProductForm() {
                     onFocus={(e) => (e.target.style.borderColor = P)} onBlur={(e) => (e.target.style.borderColor = "#E8E8E8")} />
                 </F>
               </div>
-              <div style={grid2}>
+              <div className="admin-grid-2">
                 <F label="বিভাগ" required>
                   <select style={{ ...inStyle, cursor: "pointer" }} value={form.category_slug}
                     onChange={(e) => { const c = categories.find(x => x.slug === e.target.value); set("category_slug", e.target.value); set("category_label", c?.label ?? ""); }}
@@ -174,7 +172,7 @@ export default function AdminProductForm() {
                     onFocus={(e) => (e.target.style.borderColor = P)} onBlur={(e) => (e.target.style.borderColor = "#E8E8E8")} />
                 </F>
               </div>
-              <div style={grid2}>
+              <div className="admin-grid-2">
                 <F label="মূল্য (৳)" required>
                   <input style={inStyle} type="number" value={form.price} required min={0} onChange={(e) => set("price", e.target.value)}
                     onFocus={(e) => (e.target.style.borderColor = P)} onBlur={(e) => (e.target.style.borderColor = "#E8E8E8")} />
@@ -185,7 +183,7 @@ export default function AdminProductForm() {
                     onFocus={(e) => (e.target.style.borderColor = P)} onBlur={(e) => (e.target.style.borderColor = "#E8E8E8")} />
                 </F>
               </div>
-              <div style={grid2}>
+              <div className="admin-grid-2">
                 <F label="রেটিং (১–৫)">
                   <input style={inStyle} type="number" value={form.rating} min={1} max={5} onChange={(e) => set("rating", e.target.value)}
                     onFocus={(e) => (e.target.style.borderColor = P)} onBlur={(e) => (e.target.style.borderColor = "#E8E8E8")} />
@@ -195,7 +193,7 @@ export default function AdminProductForm() {
                     onFocus={(e) => (e.target.style.borderColor = P)} onBlur={(e) => (e.target.style.borderColor = "#E8E8E8")} />
                 </F>
               </div>
-              <div style={grid2}>
+              <div className="admin-grid-2">
                 <F label="ব্যাজ">
                   <input style={inStyle} value={form.badge} placeholder="যেমন: সেরা বিক্রয়" onChange={(e) => set("badge", e.target.value)}
                     onFocus={(e) => (e.target.style.borderColor = P)} onBlur={(e) => (e.target.style.borderColor = "#E8E8E8")} />
@@ -239,7 +237,7 @@ export default function AdminProductForm() {
           {/* Flags */}
           <div style={{ backgroundColor: "#fff", borderRadius: 14, border: "1px solid #E8E8E8", padding: 24 }}>
             <h3 style={{ fontFamily: "'Noto Serif',serif", fontSize: 18, fontWeight: 400, color: "#1A1C1C", margin: "0 0 20px" }}>অবস্থা ও বিকল্প</h3>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 12 }}>
+            <div className="admin-grid-4">
               {([
                 ["in_stock",  "স্টকে আছে",     "inventory"],
                 ["featured",  "ফিচার্ড",        "star"],

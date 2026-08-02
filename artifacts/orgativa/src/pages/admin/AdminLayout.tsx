@@ -143,6 +143,10 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
           .admin-sidebar { left: 0 !important; box-shadow: none !important; }
           .admin-main { margin-left: 240px; }
         }
+        .admin-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .admin-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        @media (max-width: 1024px) { .admin-grid-4 { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 640px) { .admin-grid-4 { grid-template-columns: 1fr; } .admin-grid-2 { grid-template-columns: 1fr; } }
       `}</style>
     </div>
   );

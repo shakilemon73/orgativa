@@ -61,9 +61,9 @@ export default function AdminProducts() {
         </div>
       )}
 
-      <div style={{ maxWidth: 1100 }}>
+      <div style={{ maxWidth: 1080, margin: 0 }}>
         {/* Header row */}
-        <div style={{ display: "flex", gap: 12, marginBottom: 24, flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: 16, marginBottom: 24, flexWrap: "wrap", alignItems: "center" }}>
           <div style={{ flex: 1, minWidth: 200, position: "relative" }}>
             <span className="material-symbols-outlined" style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", fontSize: 18, color: "#737973" }}>search</span>
             <input

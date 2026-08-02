@@ -54,7 +54,7 @@ export default function AdminDashboard() {
 
   return (
     <AdminLayout title="ড্যাশবোর্ড">
-      <div style={{ maxWidth: 1100 }}>
+      <div style={{ maxWidth: 1080, margin: 0 }}>
         {/* Welcome */}
         <div style={{ marginBottom: 28 }}>
           <p style={{ fontSize: 13, color: "#737973", fontFamily: "'Inter',sans-serif", marginBottom: 4 }}>স্বাগতম!</p>
@@ -62,7 +62,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Stats */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16, marginBottom: 32 }}>
+        <div className="admin-grid-4" style={{ marginBottom: 32 }}>
           {statCards.map((s) => (
             <div key={s.label} style={{ backgroundColor: "#fff", borderRadius: 14, border: "1px solid #E8E8E8", padding: "20px 22px", display: "flex", alignItems: "flex-start", gap: 14 }}>
               <div style={{ width: 44, height: 44, backgroundColor: s.bg, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
@@ -81,7 +81,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Quick actions */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 12, marginBottom: 32 }}>
+        <div className="admin-grid-4" style={{ marginBottom: 32 }}>
           {[
             { icon: "add_box",      label: "নতুন পণ্য যোগ করুন",  path: "/admin/products/new" },
             { icon: "receipt_long", label: "অর্ডার দেখুন",        path: "/admin/orders" },
