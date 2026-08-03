@@ -40,25 +40,39 @@ export function useProducts(categorySlug?: string) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!isSupabaseConfigured) {
-      const filtered = categorySlug && categorySlug !== "all"
+    const getStatic = () =>
+      categorySlug && categorySlug !== "all"
         ? staticProducts.filter((p) => p.categorySlug === categorySlug)
         : staticProducts;
-      setData(filtered);
+
+    if (!isSupabaseConfigured) {
+      setData(getStatic());
       setLoading(false);
       return;
     }
 
-    let query = supabase!.from("products").select("*").order("display_order");
-    if (categorySlug && categorySlug !== "all") {
-      query = query.eq("category_slug", categorySlug);
+    async function fetchProducts() {
+      try {
+        let query = supabase!.from("products").select("*").order("display_order");
+        if (categorySlug && categorySlug !== "all") {
+          query = query.eq("category_slug", categorySlug);
+        }
+        const { data: rows, error: err } = await query;
+        if (err || !rows || rows.length === 0) {
+          if (err) setError(err.message);
+          setData(getStatic());
+        } else {
+          setData(rows.map(dbProductToProduct));
+        }
+      } catch (err: any) {
+        setError(err?.message ?? "Error fetching products");
+        setData(getStatic());
+      } finally {
+        setLoading(false);
+      }
     }
 
-    query.then(({ data: rows, error: err }) => {
-      if (err) { setError(err.message); setLoading(false); return; }
-      setData((rows ?? []).map(dbProductToProduct));
-      setLoading(false);
-    });
+    fetchProducts();
   }, [categorySlug]);
 
   return { data, loading, error };
@@ -70,18 +84,36 @@ export function useProduct(slug: string) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const staticItem = staticProducts.find((p) => p.slug === slug) ?? null;
+
     if (!isSupabaseConfigured) {
-      setData(staticProducts.find((p) => p.slug === slug) ?? null);
+      setData(staticItem);
       setLoading(false);
       return;
     }
 
-    supabase!.from("products").select("*").eq("slug", slug).single()
-      .then(({ data: row, error: err }) => {
-        if (err) { setError(err.message); setLoading(false); return; }
-        setData(row ? dbProductToProduct(row) : null);
+    async function fetchProduct() {
+      try {
+        const { data: row, error: err } = await supabase!
+          .from("products")
+          .select("*")
+          .eq("slug", slug)
+          .single();
+        if (err || !row) {
+          if (err) setError(err.message);
+          setData(staticItem);
+        } else {
+          setData(dbProductToProduct(row));
+        }
+      } catch (err: any) {
+        setError(err?.message ?? "Error fetching product");
+        setData(staticItem);
+      } finally {
         setLoading(false);
-      });
+      }
+    }
+
+    fetchProduct();
   }, [slug]);
 
   return { data, loading, error };
@@ -98,11 +130,25 @@ export function useCategories() {
       return;
     }
 
-    supabase!.from("categories").select("*").order("display_order")
-      .then(({ data: rows }) => {
-        setData((rows ?? []).map(dbCategoryToCategory));
+    async function fetchCategories() {
+      try {
+        const { data: rows, error: err } = await supabase!
+          .from("categories")
+          .select("*")
+          .order("display_order");
+        if (err || !rows || rows.length === 0) {
+          setData(staticCategories);
+        } else {
+          setData(rows.map(dbCategoryToCategory));
+        }
+      } catch {
+        setData(staticCategories);
+      } finally {
         setLoading(false);
-      });
+      }
+    }
+
+    fetchCategories();
   }, []);
 
   return { data, loading };
