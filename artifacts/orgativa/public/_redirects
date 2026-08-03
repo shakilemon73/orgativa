@@ -1,1 +1,1 @@
-/* /index.html 200
+# SPA fallback routing is configured in wrangler.toml via not_found_handling = "single-page-application"
