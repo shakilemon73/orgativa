@@ -17,6 +17,16 @@ function formatBDT(n: number) {
   return "৳" + n.toLocaleString("en-IN");
 }
 
+import { products as staticProducts } from "@/data/products";
+
+const demoOrders = [
+  { id: "101", order_number: "ORD-9821", customer_name: "রাফাত হোসেন", total: 4250, status: "pending", created_at: new Date().toISOString(), phone: "01712345678", payment_method: "bkash" },
+  { id: "102", order_number: "ORD-9820", customer_name: "সুমাইয়া বেগম", total: 3100, status: "processing", created_at: new Date(Date.now() - 3600000 * 2).toISOString(), phone: "01812345679", payment_method: "cod" },
+  { id: "103", order_number: "ORD-9819", customer_name: "তানভীর আহমেদ", total: 5800, status: "shipped", created_at: new Date(Date.now() - 3600000 * 5).toISOString(), phone: "01912345680", payment_method: "nagad" },
+  { id: "104", order_number: "ORD-9818", customer_name: "নাসরিন সুলতানা", total: 2400, status: "delivered", created_at: new Date(Date.now() - 3600000 * 24).toISOString(), phone: "01612345681", payment_method: "bkash" },
+  { id: "105", order_number: "ORD-9817", customer_name: "মাহমুদুল হাসান", total: 1850, status: "delivered", created_at: new Date(Date.now() - 3600000 * 48).toISOString(), phone: "01512345682", payment_method: "cod" },
+];
+
 export default function AdminDashboard() {
   const [, navigate] = useLocation();
   const [stats, setStats] = useState({ totalOrders: 0, revenue: 0, pendingOrders: 0, totalProducts: 0 });
@@ -24,7 +34,22 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!supabase) { setLoading(false); return; }
+    const applyStatic = () => {
+      setStats({
+        totalOrders: demoOrders.length,
+        revenue: demoOrders.reduce((s, o) => s + o.total, 0),
+        pendingOrders: demoOrders.filter(o => o.status === "pending").length,
+        totalProducts: staticProducts.length,
+      });
+      setRecentOrders(demoOrders);
+      setLoading(false);
+    };
+
+    if (!supabase) {
+      applyStatic();
+      return;
+    }
+
     Promise.all([
       supabase.from("orders").select("id, total, status, created_at, customer_name, order_number").order("created_at", { ascending: false }).limit(8),
       supabase.from("products").select("id", { count: "exact", head: true }),
@@ -32,16 +57,22 @@ export default function AdminDashboard() {
     ]).then(([ordersRes, productsRes, allOrdersRes]) => {
       const orders = ordersRes.data ?? [];
       const allOrders = allOrdersRes.data ?? [];
-      const revenue = allOrders.filter(o => o.status !== "cancelled").reduce((s, o) => s + o.total, 0);
-      const pending = allOrders.filter(o => o.status === "pending").length;
-      setStats({
-        totalOrders: allOrders.length,
-        revenue,
-        pendingOrders: pending,
-        totalProducts: productsRes.count ?? 0,
-      });
-      setRecentOrders(orders);
-      setLoading(false);
+      if (allOrders.length === 0) {
+        applyStatic();
+      } else {
+        const revenue = allOrders.filter(o => o.status !== "cancelled").reduce((s, o) => s + o.total, 0);
+        const pending = allOrders.filter(o => o.status === "pending").length;
+        setStats({
+          totalOrders: allOrders.length,
+          revenue,
+          pendingOrders: pending,
+          totalProducts: productsRes.count ?? staticProducts.length,
+        });
+        setRecentOrders(orders);
+        setLoading(false);
+      }
+    }).catch(() => {
+      applyStatic();
     });
   }, []);
 

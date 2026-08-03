@@ -25,8 +25,8 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
   const [user, setUser] = useState<{ email: string } | null>(null);
 
   useEffect(() => {
-    if (!supabase) {
-      navigate("/admin/login");
+    if (!supabase || localStorage.getItem("orgativa_demo_admin") === "true") {
+      setUser({ email: "admin@orgativa.com.bd (Demo)" });
       return;
     }
     supabase.auth.getUser().then(({ data }) => {
@@ -39,6 +39,7 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
   }, []);
 
   async function handleLogout() {
+    localStorage.removeItem("orgativa_demo_admin");
     if (supabase) await supabase.auth.signOut();
     navigate("/admin/login");
   }

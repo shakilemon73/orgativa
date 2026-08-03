@@ -1,4 +1,4 @@
-import { Switch, Route, Router as WouterRouter } from "wouter";
+import { Switch, Route, Redirect, Router as WouterRouter } from "wouter";
 import Home from "@/pages/Home";
 import ProductDetail from "@/pages/ProductDetail";
 import CategoryPage from "@/pages/CategoryPage";
@@ -28,7 +28,8 @@ function Router() {
         <Route path="/checkout" component={Checkout} />
 
         {/* Admin routes */}
-        <Route path="/admin" component={() => { window.location.replace("/admin/dashboard"); return null; }} />
+        <Route path="/admin" component={() => <Redirect to="/admin/dashboard" />} />
+        <Route path="/admin/" component={() => <Redirect to="/admin/dashboard" />} />
         <Route path="/admin/login" component={AdminLogin} />
         <Route path="/admin/dashboard" component={AdminDashboard} />
         <Route path="/admin/products" component={AdminProducts} />

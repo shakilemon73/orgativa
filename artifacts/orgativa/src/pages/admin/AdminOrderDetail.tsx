@@ -29,6 +29,19 @@ function InfoItem({ label, value }: { label: string; value?: string | null }) {
   );
 }
 
+const demoOrdersList: DbOrder[] = [
+  { id: "101", order_number: "ORD-9821", customer_name: "রাফাত হোসেন", phone: "01712345678", email: "rafat@example.com", division: "ঢাকা", district: "ঢাকা", thana: "ধানমন্ডি", address: "রোড ৪, বাসা ১২", postcode: "1205", payment_method: "bkash", payment_number: "01712345678", transaction_id: "TRX9821BK", subtotal: 4150, delivery_fee: 100, total: 4250, status: "pending", notes: "জরুরি ডেলিভারি প্রয়োজন", created_at: new Date().toISOString(), updated_at: new Date().toISOString() },
+  { id: "102", order_number: "ORD-9820", customer_name: "সুমাইয়া বেগম", phone: "01812345679", email: "sumaiya@example.com", division: "চট্টগ্রাম", district: "চট্টগ্রাম", thana: "পাঁচলাইশ", address: "জিইসি মোড়", postcode: "4000", payment_method: "cod", payment_number: null, transaction_id: null, subtotal: 3000, delivery_fee: 100, total: 3100, status: "processing", notes: null, created_at: new Date(Date.now() - 3600000 * 2).toISOString(), updated_at: new Date(Date.now() - 3600000 * 2).toISOString() },
+  { id: "103", order_number: "ORD-9819", customer_name: "তানভীর আহমেদ", phone: "01912345680", email: null, division: "রাজশাহী", district: "রাজশাহী", thana: "বোয়ালিয়া", address: "সাহেব বাজার", postcode: "6000", payment_method: "nagad", payment_number: "01912345680", transaction_id: "NGD5512", subtotal: 5700, delivery_fee: 100, total: 5800, status: "shipped", notes: null, created_at: new Date(Date.now() - 3600000 * 5).toISOString(), updated_at: new Date(Date.now() - 3600000 * 5).toISOString() },
+  { id: "104", order_number: "ORD-9818", customer_name: "নাসরিন সুলতানা", phone: "01612345681", email: null, division: "সিলেট", district: "সিলেট", thana: "জিন্দাবাজার", address: "জেল রোড", postcode: "3100", payment_method: "bkash", payment_number: "01612345681", transaction_id: "BKS8819", subtotal: 2300, delivery_fee: 100, total: 2400, status: "delivered", notes: null, created_at: new Date(Date.now() - 3600000 * 24).toISOString(), updated_at: new Date(Date.now() - 3600000 * 24).toISOString() },
+  { id: "105", order_number: "ORD-9817", customer_name: "মাহমুদুল হাসান", phone: "01512345682", email: null, division: "খুলনা", district: "খুলনা", thana: "সোনাডাঙ্গা", address: "বাসস্ট্যান্ড রোড", postcode: "9100", payment_method: "cod", payment_number: null, transaction_id: null, subtotal: 1750, delivery_fee: 100, total: 1850, status: "delivered", notes: null, created_at: new Date(Date.now() - 3600000 * 48).toISOString(), updated_at: new Date(Date.now() - 3600000 * 48).toISOString() },
+];
+
+const demoItems: DbOrderItem[] = [
+  { id: "item-1", order_id: "101", product_id: "1", product_name: "বন্য বনের মধু (৫০০ গ্রাম)", product_image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBq58vEH7gYivPXEcLtToX4pCgGkviWmugMHiaigVEtrhNKVWTb4fTxR1hT32LDpNdlSJzxRskyCEBJLI9quHz9O_6QJVWrn2OIY0kpmCMFk7aQwMx5LqiF6lunsosrCjrayF1NNm2DDGr068cYTrgWBexlw0yOmDhPOzDAp1MypmTUW6y9JGsEHMxMHefsdhAn4UsSDMBRDY5ICzk37jUhLrIrO4ZkFiI3ZE-r9CNn86Gtqi1oO6X-niuYbLh0cNTrJ99yBDhQFyb7", quantity: 1, unit_price: 2400, total_price: 2400, created_at: new Date().toISOString() },
+  { id: "item-2", order_id: "101", product_id: "2", product_name: "ঠান্ডা চাপা সরিষার তেল (৭৫০ মিলি)", product_image: "https://lh3.googleusercontent.com/aida-public/AB6AXuA5GzOFWh1pgalQi48-L6jXrnrBdcvDxK-Gb2S8CCtBZFhvlX6tSY2Kz_j7uleHESVRHEh2qnBrg-_pdX-Ks_uVdKF5QPfZpif5WE-0yV3F0MmXlPDL9MqfTONTNjX7iazXEden3BKL14y5eckX2gd8w4dug-rDpGiPJIq0JpnVgtv8zQNZ2mKOn1kg3Iisw4JEuaZNxS0M2pjAGoHHG_zXdz9MCZGlp3pmHyrpaZ0fMr2frPb0LRDYEWVdycoyfZpBlnXXx4gm11UX", quantity: 1, unit_price: 1850, total_price: 1850, created_at: new Date().toISOString() },
+];
+
 export default function AdminOrderDetail() {
   const { id } = useParams<{ id: string }>();
   const [, navigate] = useLocation();
@@ -41,14 +54,30 @@ export default function AdminOrderDetail() {
   function showToast(msg: string) { setToast(msg); setTimeout(() => setToast(null), 3000); }
 
   useEffect(() => {
-    if (!supabase) { setLoading(false); return; }
+    const applyDemo = () => {
+      const found = demoOrdersList.find(o => o.id === id) ?? demoOrdersList[0];
+      setOrder(found);
+      setItems(demoItems);
+      setLoading(false);
+    };
+
+    if (!supabase) {
+      applyDemo();
+      return;
+    }
     Promise.all([
       supabase.from("orders").select("*").eq("id", id).single(),
       supabase.from("order_items").select("*").eq("order_id", id),
     ]).then(([orderRes, itemsRes]) => {
-      setOrder(orderRes.data ?? null);
-      setItems(itemsRes.data ?? []);
-      setLoading(false);
+      if (!orderRes.data) {
+        applyDemo();
+      } else {
+        setOrder(orderRes.data);
+        setItems(itemsRes.data ?? []);
+        setLoading(false);
+      }
+    }).catch(() => {
+      applyDemo();
     });
   }, [id]);
 

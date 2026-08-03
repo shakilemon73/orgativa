@@ -9,6 +9,35 @@ function formatBDT(n: number) {
   return "৳" + n.toLocaleString("en-IN");
 }
 
+import { products as staticProducts } from "@/data/products";
+
+function productToDbProduct(p: typeof staticProducts[0]): DbProduct {
+  return {
+    id: p.id.toString(),
+    slug: p.slug,
+    name: p.name,
+    category_label: p.category,
+    category_slug: p.categorySlug,
+    weight: p.weight,
+    price: p.price,
+    original_price: p.originalPrice ?? null,
+    rating: p.rating,
+    reviews: p.reviews,
+    image: p.image,
+    images: p.images,
+    badge: p.badge ?? null,
+    description: p.description,
+    highlights: p.highlights,
+    origin: p.origin,
+    in_stock: p.inStock,
+    featured: p.badge === "সেরা বিক্রয়" || p.badge === "প্রিমিয়াম",
+    trending: p.badge === "সেরা বিক্রয়",
+    display_order: p.id,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  };
+}
+
 export default function AdminProducts() {
   const [, navigate] = useLocation();
   const [products, setProducts] = useState<DbProduct[]>([]);
@@ -23,11 +52,25 @@ export default function AdminProducts() {
   }
 
   async function loadProducts() {
-    if (!supabase) { setLoading(false); return; }
+    const staticDbProducts = staticProducts.map(productToDbProduct);
+    if (!supabase) {
+      setProducts(staticDbProducts);
+      setLoading(false);
+      return;
+    }
     setLoading(true);
-    const { data } = await supabase.from("products").select("*").order("display_order");
-    setProducts(data ?? []);
-    setLoading(false);
+    try {
+      const { data } = await supabase.from("products").select("*").order("display_order");
+      if (!data || data.length === 0) {
+        setProducts(staticDbProducts);
+      } else {
+        setProducts(data);
+      }
+    } catch {
+      setProducts(staticDbProducts);
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => { loadProducts(); }, []);

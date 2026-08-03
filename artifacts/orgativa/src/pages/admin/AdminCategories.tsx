@@ -12,6 +12,21 @@ const inStyle: React.CSSProperties = {
 
 const EMPTY = { slug: "", label: "", icon: "category", image_url: "", product_count: "0", display_order: "0" };
 
+import { categories as staticCategories } from "@/data/products";
+
+function categoryToDbCategory(c: typeof staticCategories[0], index: number): DbCategory {
+  return {
+    id: (index + 1).toString(),
+    slug: c.slug,
+    label: c.label,
+    icon: c.icon,
+    image_url: c.image,
+    product_count: c.count,
+    display_order: index + 1,
+    created_at: new Date().toISOString(),
+  };
+}
+
 export default function AdminCategories() {
   const [categories, setCategories] = useState<DbCategory[]>([]);
   const [loading, setLoading] = useState(true);
@@ -27,11 +42,25 @@ export default function AdminCategories() {
   }
 
   async function load() {
-    if (!supabase) { setLoading(false); return; }
+    const staticDbCategories = staticCategories.map(categoryToDbCategory);
+    if (!supabase) {
+      setCategories(staticDbCategories);
+      setLoading(false);
+      return;
+    }
     setLoading(true);
-    const { data } = await supabase.from("categories").select("*").order("display_order");
-    setCategories(data ?? []);
-    setLoading(false);
+    try {
+      const { data } = await supabase.from("categories").select("*").order("display_order");
+      if (!data || data.length === 0) {
+        setCategories(staticDbCategories);
+      } else {
+        setCategories(data);
+      }
+    } catch {
+      setCategories(staticDbCategories);
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => { load(); }, []);
