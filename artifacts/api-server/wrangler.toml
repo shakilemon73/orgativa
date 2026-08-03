@@ -3,11 +3,15 @@ main = "src/worker.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]
 
+# Serve the React frontend as static assets.
+# The Worker handles /api/* routes; everything else falls back to index.html (SPA).
+[assets]
+directory = "../../artifacts/orgativa/dist"
+not_found_handling = "single-page-application"
+
 [vars]
-# Add your environment variables here (non-secret)
-# Secrets should be set via: wrangler secret put SECRET_NAME
-# Required secrets:
-#   DATABASE_URL (if Worker needs DB access)
+# Non-secret env vars go here.
+# Secrets: wrangler secret put SECRET_NAME
 
 [dev]
 port = 8787
