@@ -27,6 +27,7 @@ export default defineConfig({
     emptyOutDir: true,
     minify: true,
     cssMinify: true,
+    chunkSizeWarningLimit: 1000,
   },
   server: rawPort
     ? {
@@ -45,4 +46,3 @@ export default defineConfig({
       }
     : undefined,
 });
-
