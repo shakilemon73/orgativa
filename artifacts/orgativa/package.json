@@ -7,9 +7,7 @@
     "dev": "vite --config vite.config.ts --host 0.0.0.0",
     "build": "vite build --config vite.config.ts",
     "serve": "vite preview --config vite.config.ts --host 0.0.0.0",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
-    "deploy": "vite build --config vite.config.ts && wrangler pages deploy dist/public --project-name orgativa",
-    "deploy:dry": "vite build --config vite.config.ts && wrangler pages deploy dist/public --project-name orgativa --dry-run"
+    "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -74,8 +72,7 @@
     "vaul": "^1.1.2",
     "vite": "catalog:",
     "wouter": "^3.3.5",
-    "zod": "catalog:",
-    "wrangler": "^4.20.0"
+    "zod": "catalog:"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.2"
