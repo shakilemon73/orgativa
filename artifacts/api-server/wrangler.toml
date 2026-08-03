@@ -4,10 +4,14 @@ compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]
 
 # Serve the React frontend as static assets.
-# The Worker handles /api/* routes; everything else falls back to index.html (SPA).
+# run_worker_first tells Cloudflare to ONLY invoke the Worker for /api/* paths.
+# All other paths (/, /admin, /admin/login, /cart, etc.) go directly to Assets CDN.
+# When no matching file exists, not_found_handling = "single-page-application" serves index.html.
 [assets]
 directory = "../../artifacts/orgativa/dist"
 not_found_handling = "single-page-application"
+binding = "ASSETS"
+run_worker_first = ["/api/*"]
 
 [vars]
 # Non-secret env vars go here.

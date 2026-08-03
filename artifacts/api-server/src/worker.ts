@@ -1,25 +1,25 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { logger } from "hono/logger";
 import { z } from "zod";
 
 // ── Environment Bindings ───────────────────────────────────────────────────
+// ASSETS binding is available (but not needed here since run_worker_first = ["/api/*"]
+// means this Worker is ONLY invoked for /api/* routes. Static assets and SPA
+// routes like /admin are served directly by Cloudflare Assets CDN with
+// not_found_handling = "single-page-application" serving index.html as fallback.
 type Env = {
   Bindings: {
-    ASSETS: {
-      fetch: (request: Request) => Promise<Response>;
-    };
+    ASSETS: Fetcher;
   };
 };
 
-// ── Schema (mirrors @workspace/api-zod, inlined for edge bundling) ──────────
+// ── Schema ───────────────────────────────────────────────────────────────────
 const HealthCheckResponse = z.object({ status: z.string() });
 
 // ── App ──────────────────────────────────────────────────────────────────────
 const app = new Hono<Env>();
 
 app.use("*", cors());
-app.use("*", logger());
 
 // ── API Routes ───────────────────────────────────────────────────────────────
 app.get("/api/healthz", (c) => {
@@ -30,29 +30,9 @@ app.get("/api/healthz", (c) => {
 // Any unmatched /api/* route returns JSON 404
 app.all("/api/*", (c) => c.json({ message: "API endpoint not found" }, 404));
 
-// ── Static Assets & SPA Client-Side Routing ──────────────────────────────────
-// All non-API routes (e.g. /, /admin, /admin/login, /cart, /category/*)
-app.get("*", async (c) => {
-  if (c.env && c.env.ASSETS) {
-    // 1. Try serving exact static asset (e.g. /assets/index.js, /favicon.svg)
-    const assetRes = await c.env.ASSETS.fetch(c.req.raw);
-    if (assetRes.status !== 404) {
-      return assetRes;
-    }
-
-    // 2. Fallback to /index.html for SPA client-side routes (/admin, /cart, etc.)
-    const indexUrl = new URL("/index.html", c.req.url);
-    const indexReq = new Request(indexUrl.toString(), {
-      method: "GET",
-      headers: c.req.raw.headers,
-    });
-    const indexRes = await c.env.ASSETS.fetch(indexReq);
-    if (indexRes.status === 200 || indexRes.status === 304) {
-      return indexRes;
-    }
-  }
-
-  return c.json({ message: "Not found" }, 404);
-});
+// NOTE: No catch-all needed. This Worker is ONLY invoked for /api/* because of
+// run_worker_first = ["/api/*"] in wrangler.toml. All other routes (/, /admin,
+// /admin/login, /cart, /category/*, etc.) are handled by Cloudflare Assets CDN
+// which serves index.html for any unmatched path (SPA mode).
 
 export default app;
