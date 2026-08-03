@@ -46,7 +46,7 @@ export default function AdminOrders() {
 
   return (
     <AdminLayout title="অর্ডার">
-      <div style={{ maxWidth: 1080, margin: 0 }}>
+      <div style={{ maxWidth: 1080, margin: "0 auto" }}>
         {/* Status filter pills */}
         <div style={{ display: "flex", gap: 12, marginBottom: 20, flexWrap: "wrap", alignItems: "center" }}>
           {([["all", "সব"] as const, ...Object.entries(STATUS_LABELS).map(([k, v]) => [k as OrderStatus, v.label] as const)]).map(([val, label]) => {

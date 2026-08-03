@@ -134,7 +134,7 @@ export default function AdminProductForm() {
 
   return (
     <AdminLayout title={isEdit ? "পণ্য সম্পাদনা" : "নতুন পণ্য যোগ করুন"}>
-      <div style={{ maxWidth: 1080, margin: 0 }}>
+      <div style={{ maxWidth: 1080, margin: "0 auto" }}>
         <button onClick={() => navigate("/admin/products")}
           style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", cursor: "pointer", color: P, fontSize: 13, fontFamily: "'Inter',sans-serif", marginBottom: 20, fontWeight: 600 }}>
           <span className="material-symbols-outlined" style={{ fontSize: 18 }}>arrow_back</span>

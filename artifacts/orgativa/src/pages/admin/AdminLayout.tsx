@@ -116,7 +116,7 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
       )}
 
       {/* Main content */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", marginLeft: 0 }} className="admin-main">
+      <div style={{ flex: 1, display: "flex", flexDirection: "column" }} className="admin-main">
         {/* Top bar */}
         <header style={{ backgroundColor: "#fff", borderBottom: "1px solid #E8E8E8", padding: "0 24px", height: 60, display: "flex", alignItems: "center", gap: 16, position: "sticky", top: 0, zIndex: 100 }}>
           <button onClick={() => setSidebarOpen(!sidebarOpen)}

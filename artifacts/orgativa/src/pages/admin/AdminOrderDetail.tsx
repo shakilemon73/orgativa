@@ -91,7 +91,7 @@ export default function AdminOrderDetail() {
         <div style={{ position: "fixed", bottom: 24, right: 24, backgroundColor: P, color: "#fff", borderRadius: 10, padding: "12px 20px", fontSize: 13, fontFamily: "'Inter',sans-serif", fontWeight: 600, zIndex: 999 }}>{toast}</div>
       )}
 
-      <div style={{ maxWidth: 1080, margin: 0 }}>
+      <div style={{ maxWidth: 1080, margin: "0 auto" }}>
         <button onClick={() => navigate("/admin/orders")}
           style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", cursor: "pointer", color: P, fontSize: 13, fontFamily: "'Inter',sans-serif", marginBottom: 20, fontWeight: 600 }}>
           <span className="material-symbols-outlined" style={{ fontSize: 18 }}>arrow_back</span>

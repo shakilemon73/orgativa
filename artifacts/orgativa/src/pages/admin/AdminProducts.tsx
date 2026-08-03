@@ -61,7 +61,7 @@ export default function AdminProducts() {
         </div>
       )}
 
-      <div style={{ maxWidth: 1080, margin: 0 }}>
+      <div style={{ maxWidth: 1080, margin: "0 auto" }}>
         {/* Header row */}
         <div style={{ display: "flex", gap: 16, marginBottom: 24, flexWrap: "wrap", alignItems: "center" }}>
           <div style={{ flex: 1, minWidth: 200, position: "relative" }}>

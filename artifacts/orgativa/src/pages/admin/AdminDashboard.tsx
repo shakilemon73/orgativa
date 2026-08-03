@@ -54,7 +54,7 @@ export default function AdminDashboard() {
 
   return (
     <AdminLayout title="ড্যাশবোর্ড">
-      <div style={{ maxWidth: 1080, margin: 0 }}>
+      <div style={{ maxWidth: 1080, margin: "0 auto" }}>
         {/* Welcome */}
         <div style={{ marginBottom: 28 }}>
           <p style={{ fontSize: 13, color: "#737973", fontFamily: "'Inter',sans-serif", marginBottom: 4 }}>স্বাগতম!</p>
