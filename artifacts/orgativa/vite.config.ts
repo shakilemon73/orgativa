@@ -17,7 +17,7 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    runtimeErrorOverlay(),
+    ...(isDev ? [runtimeErrorOverlay()] : []),
     ...(isDev && isReplit
       ? [
           await import("@replit/vite-plugin-cartographer").then((m) =>
