@@ -1,0 +1,71 @@
+
+--- 2026-08-03T07:49:05.581Z debug
+🪵  Writing logs to "/home/runner/workspace/.config/.wrangler/logs/wrangler-2026-08-03_07-49-05_065.log"
+---
+
+--- 2026-08-03T07:49:05.580Z debug
+.env file not found at "/home/runner/workspace/artifacts/api-server/.env". Continuing... For more details, refer to https://developers.cloudflare.com/workers/wrangler/system-environment-variables/
+---
+
+--- 2026-08-03T07:49:05.582Z debug
+.env file not found at "/home/runner/workspace/artifacts/api-server/.env.local". Continuing... For more details, refer to https://developers.cloudflare.com/workers/wrangler/system-environment-variables/
+---
+
+--- 2026-08-03T07:49:05.685Z log
+
+ ⛅️ wrangler 4.118.0
+────────────────────
+---
+
+--- 2026-08-03T07:49:05.722Z debug
+Running autoconfig detection in /home/runner/workspace/artifacts/api-server...
+---
+
+--- 2026-08-03T07:49:06.077Z debug
+Metrics dispatcher: Posting data {"deviceId":"56032d3d-23de-4e30-ab17-b92d3ca2275d","event":"wrangler command started","timestamp":1785743346077,"properties":{"amplitude_session_id":1785743345698,"amplitude_event_id":0,"wranglerVersion":"4.118.0","wranglerMajorVersion":4,"wranglerMinorVersion":118,"wranglerPatchVersion":0,"osPlatform":"Linux","osVersion":"#Replit-Linux SMP Mon Jun  1 15:51:08 UTC 2026","nodeVersion":24,"packageManager":"pnpm","isFirstUsage":true,"configFileType":"toml","isCI":false,"isPagesCI":false,"isWorkersCI":false,"isInteractive":false,"hasAssets":false,"agent":"replit","argsUsed":["dryRun"],"argsCombination":"dryRun","sanitizedCommand":"deploy","sanitizedArgs":{"dryRun":true},"currentAgentSkillsInstalled":false}}
+---
+
+--- 2026-08-03T07:49:06.080Z debug
+Metrics dispatcher: Posting data {"deviceId":"56032d3d-23de-4e30-ab17-b92d3ca2275d","event":"autoconfig_process_started","timestamp":1785743346080,"properties":{"amplitude_session_id":1785743345722,"amplitude_event_id":0,"wranglerVersion":"4.118.0","wranglerMajorVersion":4,"wranglerMinorVersion":118,"wranglerPatchVersion":0,"osPlatform":"Linux","osVersion":"#Replit-Linux SMP Mon Jun  1 15:51:08 UTC 2026","nodeVersion":24,"packageManager":"pnpm","isFirstUsage":false,"configFileType":"none","isCI":false,"isPagesCI":false,"isWorkersCI":false,"isInteractive":false,"hasAssets":false,"agent":"replit","category":"Workers","os":"linux:x64","autoConfigId":"23264128-ca1d-4b66-a39a-db694372442e","command":"wrangler deploy","dryRun":true,"currentAgentSkillsInstalled":false}}
+---
+
+--- 2026-08-03T07:49:06.081Z debug
+Metrics dispatcher: Posting data {"deviceId":"56032d3d-23de-4e30-ab17-b92d3ca2275d","event":"autoconfig_detection_started","timestamp":1785743346081,"properties":{"amplitude_session_id":1785743345722,"amplitude_event_id":0,"wranglerVersion":"4.118.0","wranglerMajorVersion":4,"wranglerMinorVersion":118,"wranglerPatchVersion":0,"osPlatform":"Linux","osVersion":"#Replit-Linux SMP Mon Jun  1 15:51:08 UTC 2026","nodeVersion":24,"packageManager":"pnpm","isFirstUsage":false,"configFileType":"none","isCI":false,"isPagesCI":false,"isWorkersCI":false,"isInteractive":false,"hasAssets":false,"agent":"replit","category":"Workers","os":"linux:x64","autoConfigId":"23264128-ca1d-4b66-a39a-db694372442e","command":"wrangler deploy","currentAgentSkillsInstalled":false}}
+---
+
+--- 2026-08-03T07:49:06.083Z debug
+Metrics dispatcher: Posting data {"deviceId":"56032d3d-23de-4e30-ab17-b92d3ca2275d","event":"autoconfig_detection_completed","timestamp":1785743346082,"properties":{"amplitude_session_id":1785743345722,"amplitude_event_id":0,"wranglerVersion":"4.118.0","wranglerMajorVersion":4,"wranglerMinorVersion":118,"wranglerPatchVersion":0,"osPlatform":"Linux","osVersion":"#Replit-Linux SMP Mon Jun  1 15:51:08 UTC 2026","nodeVersion":24,"packageManager":"pnpm","isFirstUsage":false,"configFileType":"none","isCI":false,"isPagesCI":false,"isWorkersCI":false,"isInteractive":false,"hasAssets":false,"agent":"replit","category":"Workers","os":"linux:x64","autoConfigId":"23264128-ca1d-4b66-a39a-db694372442e","configured":true,"success":true,"currentAgentSkillsInstalled":false}}
+---
+
+--- 2026-08-03T07:49:06.083Z debug
+Metrics dispatcher: Posting data {"deviceId":"56032d3d-23de-4e30-ab17-b92d3ca2275d","event":"autoconfig_process_ended","timestamp":1785743346083,"properties":{"amplitude_session_id":1785743345722,"amplitude_event_id":0,"wranglerVersion":"4.118.0","wranglerMajorVersion":4,"wranglerMinorVersion":118,"wranglerPatchVersion":0,"osPlatform":"Linux","osVersion":"#Replit-Linux SMP Mon Jun  1 15:51:08 UTC 2026","nodeVersion":24,"packageManager":"pnpm","isFirstUsage":false,"configFileType":"none","isCI":false,"isPagesCI":false,"isWorkersCI":false,"isInteractive":false,"hasAssets":false,"agent":"replit","category":"Workers","os":"linux:x64","autoConfigId":"23264128-ca1d-4b66-a39a-db694372442e","command":"wrangler deploy","dryRun":true,"success":true,"currentAgentSkillsInstalled":false}}
+---
+
+--- 2026-08-03T07:49:06.198Z log
+Total Upload: 192.15 KiB / gzip: 36.52 KiB
+---
+
+--- 2026-08-03T07:49:06.200Z log
+No bindings found.
+---
+
+--- 2026-08-03T07:49:06.201Z log
+--dry-run: exiting now.
+---
+
+--- 2026-08-03T07:49:06.202Z debug
+Metrics dispatcher: Posting data {"deviceId":"56032d3d-23de-4e30-ab17-b92d3ca2275d","event":"deploy worker script","timestamp":1785743346202,"properties":{"amplitude_session_id":1785743346201,"amplitude_event_id":0,"wranglerVersion":"4.118.0","wranglerMajorVersion":4,"wranglerMinorVersion":118,"wranglerPatchVersion":0,"osPlatform":"Linux","osVersion":"#Replit-Linux SMP Mon Jun  1 15:51:08 UTC 2026","nodeVersion":24,"packageManager":"pnpm","isFirstUsage":false,"configFileType":"none","isCI":false,"isPagesCI":false,"isWorkersCI":false,"isInteractive":false,"hasAssets":false,"agent":"replit","category":"Workers","os":"linux:x64","usesTypeScript":true,"durationMs":423,"currentAgentSkillsInstalled":false}}
+---
+
+--- 2026-08-03T07:49:06.202Z log
+
+Cloudflare collects anonymous telemetry about your usage of Wrangler. Learn more at https://github.com/cloudflare/workers-sdk/tree/main/packages/wrangler/telemetry.md
+---
+
+--- 2026-08-03T07:49:06.205Z debug
+Metrics dispatcher: Posting data {"deviceId":"56032d3d-23de-4e30-ab17-b92d3ca2275d","event":"wrangler command completed","timestamp":1785743346205,"properties":{"amplitude_session_id":1785743345698,"amplitude_event_id":1,"wranglerVersion":"4.118.0","wranglerMajorVersion":4,"wranglerMinorVersion":118,"wranglerPatchVersion":0,"osPlatform":"Linux","osVersion":"#Replit-Linux SMP Mon Jun  1 15:51:08 UTC 2026","nodeVersion":24,"packageManager":"pnpm","isFirstUsage":false,"configFileType":"toml","isCI":false,"isPagesCI":false,"isWorkersCI":false,"isInteractive":false,"hasAssets":false,"agent":"replit","argsUsed":["dryRun"],"argsCombination":"dryRun","sanitizedCommand":"deploy","sanitizedArgs":{"dryRun":true},"durationMs":619,"currentAgentSkillsInstalled":false}}
+---
+
+--- 2026-08-03T07:49:06.206Z debug
+Metrics dispatcher: Posting data {"deviceId":"56032d3d-23de-4e30-ab17-b92d3ca2275d","event":"skills_install_skipped","timestamp":1785743346206,"properties":{"amplitude_session_id":1785743346205,"amplitude_event_id":0,"wranglerVersion":"4.118.0","wranglerMajorVersion":4,"wranglerMinorVersion":118,"wranglerPatchVersion":0,"osPlatform":"Linux","osVersion":"#Replit-Linux SMP Mon Jun  1 15:51:08 UTC 2026","nodeVersion":24,"packageManager":"pnpm","isFirstUsage":false,"configFileType":"none","isCI":false,"isPagesCI":false,"isWorkersCI":false,"isInteractive":false,"hasAssets":false,"agent":"replit","category":"Workers","os":"linux:x64","reason":"No supported agents detected","command":"deploy","currentAgentSkillsInstalled":false}}
+---
