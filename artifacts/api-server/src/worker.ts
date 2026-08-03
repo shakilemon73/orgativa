@@ -29,11 +29,27 @@ app.get("/api/healthz", (c) => {
 // Unmatched API requests return JSON 404
 app.all("/api/*", (c) => c.json({ message: "API endpoint not found" }, 404));
 
-// All non-API routes (SPA routes like /admin, /cart, /, /products/*) delegate to static ASSETS
-app.notFound((c) => {
+// All non-API routes (SPA routes like /admin, /cart, /, /products/*) delegate to static ASSETS, with index.html fallback
+app.notFound(async (c) => {
   if (c.env && c.env.ASSETS) {
-    return c.env.ASSETS.fetch(c.req.raw);
+    // 1. Try fetching the static asset directly (e.g. /assets/index.js, /favicon.svg)
+    const res = await c.env.ASSETS.fetch(c.req.raw);
+    if (res.status !== 404) {
+      return res;
+    }
+
+    // 2. For SPA client-side routes (like /admin, /admin/login, /cart), serve index.html
+    const indexUrl = new URL("/index.html", c.req.url);
+    const indexRes = await c.env.ASSETS.fetch(indexUrl.toString());
+    if (indexRes.status === 200) {
+      return new Response(indexRes.body, {
+        headers: {
+          "content-type": "text/html; charset=utf-8",
+        },
+      });
+    }
   }
+
   return c.json({ message: "Not found" }, 404);
 });
 
